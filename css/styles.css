@@ -1,0 +1,177 @@
+/* assets/css/styles.css */
+
+/* --- Reset / base --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #232323;
+  --text: #ffffff;
+  --accent: #96372f;
+  --muted: #bdbdbd;
+  --card: #2b2b2b;
+  --border: #3b3b3b;
+  --radius: 10px;
+}
+
+/* --- Global --- */
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+
+  /* Super-readable system sans */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu,
+               "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+/* Text selection for vibe */
+::selection { background: color-mix(in srgb, var(--accent) 50%, transparent); }
+
+/* --- Typography --- */
+/* Retro-arcade vibe only on headings */
+h1, h2, h3, h4 {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Lucida Console", "DejaVu Sans Mono",
+    "Courier New", monospace;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+h1 { font-size: clamp(2rem, 3.5vw, 2.4rem); }
+h2 { font-size: clamp(1.6rem, 2.8vw, 2rem); }
+h3 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); }
+h4 { font-size: 1.1rem; }
+
+p { margin-bottom: 1rem; color: var(--text); }
+small, .muted { color: var(--muted); }
+
+/* Optional scanline underline for hero titles */
+.arcade-title { position: relative; display: inline-block; }
+.arcade-title::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -4px; height: 2px;
+  background: repeating-linear-gradient(
+    90deg, var(--accent) 0 8px, transparent 8px 12px
+  );
+  opacity: .6;
+}
+
+/* --- Links --- */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: opacity .15s ease, border-color .15s ease;
+}
+a:hover { opacity: 0.88; border-color: var(--accent); }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- Layout helpers --- */
+.container { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.center { text-align: center; }
+.stack > * + * { margin-top: var(--stack-gap, 1rem); }
+
+/* --- Cards (product tiles, etc.) --- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 1rem;
+  transition: transform .08s ease, box-shadow .15s ease;
+}
+.card h3 { margin-bottom: 0.5rem; }
+.card p { margin-bottom: 0.75rem; }
+.card:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+
+/* --- Buttons --- */
+.button, button, [type="button"], [type="submit"] {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .05s ease, filter .15s ease;
+}
+.button:hover, button:hover { filter: brightness(1.08); }
+.button:active, button:active { transform: translateY(1px); }
+.button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.button.outline {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+
+/* --- Forms --- */
+input, select, textarea {
+  width: 100%;
+  background: #1e1e1e;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+}
+input::placeholder, textarea::placeholder { color: #9a9a9a; }
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- Images --- */
+img { max-width: 100%; height: auto; display: block; }
+
+/* --- Utility --- */
+.accent { color: var(--accent) !important; }
+.bg-accent { background: var(--accent) !important; color: #fff !important; }
+.spacer { height: 1rem; }
+.hr { height: 1px; background: var(--border); border: 0; margin: 1rem 0; }
+.round { border-radius: var(--radius); }
+
+/* Pixel-ish border for retro buttons/cards */
+.pixel-border { position: relative; border: 0; }
+.pixel-border::before {
+  content: "";
+  position: absolute; inset: 0;
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 0 4px var(--bg);
+  pointer-events: none;
+  border-radius: var(--radius);
+}
+
+/* --- Motion safety --- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
