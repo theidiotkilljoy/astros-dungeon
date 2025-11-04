@@ -38,7 +38,7 @@ body {
   padding: 2rem 1.25rem;
 }
 
-/* Text selection for vibe */
+/* Text selection */
 ::selection { background: color-mix(in srgb, var(--accent) 50%, transparent); }
 
 /* --- Typography --- */
@@ -72,15 +72,15 @@ small, .muted { color: var(--muted); }
   opacity: .6;
 }
 
-/* --- Links --- */
-a {
+/* --- Links (exclude button anchors) --- */
+a:not(.arcade-btn) {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: opacity .15s ease, border-color .15s ease;
 }
-a:hover { opacity: 0.88; border-color: var(--accent); }
-a:focus-visible {
+a:not(.arcade-btn):hover { opacity: 0.88; border-color: var(--accent); }
+a:not(.arcade-btn):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
@@ -109,7 +109,7 @@ a:focus-visible {
 .card p { margin-bottom: 0.75rem; }
 .card:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
 
-/* --- Buttons --- */
+/* --- Buttons (generic) --- */
 .button, button, [type="button"], [type="submit"] {
   display: inline-block;
   background: var(--accent);
@@ -119,10 +119,10 @@ a:focus-visible {
   padding: 0.65rem 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform .05s ease, filter .15s ease;
+  transition: transform .05s ease;
 }
-.button:hover, button:hover { filter: brightness(1.08); }
-.button:active, button:active { transform: translateY(1px); }
+.button:hover, button:hover { transform: translateY(-1px) scale(1.02); }
+.button:active, button:active { transform: translateY(1px) scale(0.99); }
 .button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
@@ -159,7 +159,7 @@ img { max-width: 100%; height: auto; display: block; }
 .hr { height: 1px; background: var(--border); border: 0; margin: 1rem 0; }
 .round { border-radius: var(--radius); }
 
-/* Pixel-ish border for retro buttons/cards */
+/* Pixel-ish border for retro buttons/cards (not applied to .arcade-btn) */
 .pixel-border { position: relative; border: 0; }
 .pixel-border::before {
   content: "";
@@ -180,14 +180,22 @@ img { max-width: 100%; height: auto; display: block; }
 body.home { padding: 0; max-width: none; overflow: hidden; }
 
 .landing {
-  min-height: 100svh;        /* modern viewport unit */
-  min-height: 100dvh;        /* fallback */
+  /* Mobile-safe viewport height provided by JS --vh */
+  min-height: calc(var(--vh, 1svh) * 100);
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-items: center;
   align-items: center;
-  gap: clamp(12px, 2.5vh, 24px);
-  padding: clamp(16px, 4vh, 40px) clamp(16px, 4vw, 48px);
+
+  /* Tighter vertical spacing to lift buttons */
+  gap: clamp(8px, 1.6vh, 16px);
+
+  /* Safe-area aware padding (mobile ready) */
+  padding:
+    max(16px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    max(10px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
 }
 
 .logo {
@@ -197,29 +205,42 @@ body.home { padding: 0; max-width: none; overflow: hidden; }
 }
 
 .etd {
-  width: min(92vw, 1200px);  /* leaves some background on the sides */
-  max-height: 50svh;         /* stays dominant but fits the screen */
+  width: min(92vw, 1200px);  /* leaves background edges */
+  max-height: 50svh;         /* dominant but fits screen */
   object-fit: contain;
 }
 
+/* Buttons row */
 .cta {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 3vw, 28px);
+  gap: clamp(10px, 2.4vw, 22px);
+  width: 100%;
 }
 
-/* Button built from the image with centered overlay text */
+/* Button built from an image with centered overlay text */
 .arcade-btn {
   position: relative;
   display: inline-block;
   transform-origin: center;
-  transition: transform .12s ease, filter .15s ease;
+  transition: transform .12s ease;  /* no filter effects */
+
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  /* Kill any borders/underlines and ALL shadows */
+  text-decoration: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 .arcade-btn img {
   display: block;
-  width: clamp(160px, 26vw, 360px);  /* scales responsively */
+  width: clamp(180px, 40vw, 360px);
   height: auto;
+
+  /* Ensure no shadows from images */
+  box-shadow: none !important;
 }
 .arcade-btn span {
   position: absolute;
@@ -229,25 +250,37 @@ body.home { padding: 0; max-width: none; overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 800;
-  font-size: clamp(20px, 3.2vw, 36px);
-
-  /* use the retro monospace stack you already set for headings */
+  font-size: clamp(18px, 4.5vw, 36px);
   font-family:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Lucida Console", "DejaVu Sans Mono",
     "Courier New", monospace;
-
   text-align: center;
   line-height: 1;
-  pointer-events: none; /* keep clicks on the link, not the text layer */
+  pointer-events: none;
 }
 .arcade-btn.yes span { color: #000; }
 .arcade-btn.run span { color: var(--accent); }
 
-.arcade-btn:hover { transform: translateY(-1px) scale(1.02); filter: brightness(1.05); }
+/* Scale-only hover/active — no shadows, no brightness filters */
+.arcade-btn:hover { transform: translateY(-1px) scale(1.02); }
+.arcade-btn.pressed { transform: translateY(1px) scale(0.99); }
 
-@media (max-width: 420px) {
+/* Accessible focus ring (not accent underlines) */
+.arcade-btn:focus-visible {
+  outline: 2px dashed #fff;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* Small screens: stack buttons and give the art a bit more room */
+@media (max-width: 480px) {
   .cta { flex-direction: column; }
-  .etd { max-height: 44svh; }
-  .logo { max-height: 16svh; }
+  .etd { max-height: 56svh; width: 94vw; }
+  .logo { max-height: 14svh; }
+}
+
+/* Landscape short viewports: bias space to buttons */
+@media (max-height: 420px) and (orientation: landscape) {
+  .etd { max-height: 42svh; }
 }
