@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#232323">
+  <title>Afterlife — Astro's Dungeon</title>
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <style>
+    /* Page-specific tweak: smaller logo on afterlife screen */
+    body.afterlife .logo {
+      width: clamp(120px, 22vw, 240px);
+      max-height: 14svh;
+    }
+  </style>
+</head>
+<body class="home afterlife">
+  <main class="landing">
+    <!-- Top: Logo (smaller here) -->
+    <img src="./images/logo.png"
+         alt="Astro's Dungeon"
+         class="logo"
+         width="640" height="200" decoding="async">
+
+    <!-- Big center image -->
+    <img src="./images/youdied.png"
+         alt="You Died"
+         class="etd"
+         width="1600" height="900" decoding="async">
+
+    <!-- Single respawn button -->
+    <nav class="cta" aria-label="Afterlife actions">
+      <a class="arcade-btn respawn" href="./homepage.html" aria-label="Respawn">
+        <img src="./images/respawn.png" alt="Respawn" width="600" height="200" decoding="async">
+      </a>
+    </nav>
+  </main>
+
+  <script type="module" src="./assets/js/main.js"></script>
+</body>
+</html>
