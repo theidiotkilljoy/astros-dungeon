@@ -59,3 +59,12 @@
     if (e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
 })();
+
+// Homepage-specific preloads (button.png, respawn optional)
+(() => {
+  const extra = ['images/button.png', 'images/respawn.png'];
+  extra.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+})();
