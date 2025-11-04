@@ -3,30 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#232323">
   <title>Astro's Dungeon</title>
   <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body class="home">
   <main class="landing">
     <!-- Top: Logo -->
-    <img src="./images/logo.png" alt="Astro's Dungeon" class="logo">
+    <img src="./images/logo.png"
+         alt="Astro's Dungeon"
+         class="logo"
+         width="640" height="200" decoding="async">
 
     <!-- Middle: ETD art -->
-    <img src="./images/etd.png" alt="Exiting the Dungeon" class="etd">
+    <img src="./images/etd.png"
+         alt="Exiting the Dungeon"
+         class="etd"
+         width="1600" height="900" decoding="async">
 
-    <!-- Bottom: Two buttons -->
+    <!-- Bottom: Two buttons (image-only) -->
     <nav class="cta" aria-label="Primary choices">
-      <a class="arcade-btn yes" href="./homepage.html">
-        <img src="./images/button.png" alt="" aria-hidden="true">
-        <span>Yes</span>
+      <a class="arcade-btn yes" href="./homepage.html" aria-label="Yes">
+        <img src="./images/yes.png" alt="Yes" width="600" height="200" decoding="async">
       </a>
 
-      <a class="arcade-btn run" href="./afterlife.html">
-        <img src="./images/button.png" alt="" aria-hidden="true">
-        <span>Run</span>
+      <a class="arcade-btn run" href="./afterlife.html" aria-label="Run">
+        <img src="./images/run.png" alt="Run" width="600" height="200" decoding="async">
       </a>
     </nav>
   </main>
+
+  <script type="module" src="./assets/js/main.js"></script>
 </body>
 </html>
-
