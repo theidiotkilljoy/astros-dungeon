@@ -175,3 +175,79 @@ img { max-width: 100%; height: auto; display: block; }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }
+
+/* ===== Home (single-screen landing) ===== */
+body.home { padding: 0; max-width: none; overflow: hidden; }
+
+.landing {
+  min-height: 100svh;        /* modern viewport unit */
+  min-height: 100dvh;        /* fallback */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  align-items: center;
+  gap: clamp(12px, 2.5vh, 24px);
+  padding: clamp(16px, 4vh, 40px) clamp(16px, 4vw, 48px);
+}
+
+.logo {
+  width: clamp(160px, 28vw, 320px);
+  max-height: 18svh;
+  object-fit: contain;
+}
+
+.etd {
+  width: min(92vw, 1200px);  /* leaves some background on the sides */
+  max-height: 50svh;         /* stays dominant but fits the screen */
+  object-fit: contain;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 28px);
+}
+
+/* Button built from the image with centered overlay text */
+.arcade-btn {
+  position: relative;
+  display: inline-block;
+  transform-origin: center;
+  transition: transform .12s ease, filter .15s ease;
+}
+.arcade-btn img {
+  display: block;
+  width: clamp(160px, 26vw, 360px);  /* scales responsively */
+  height: auto;
+}
+.arcade-btn span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  font-size: clamp(20px, 3.2vw, 36px);
+
+  /* use the retro monospace stack you already set for headings */
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Lucida Console", "DejaVu Sans Mono",
+    "Courier New", monospace;
+
+  text-align: center;
+  line-height: 1;
+  pointer-events: none; /* keep clicks on the link, not the text layer */
+}
+.arcade-btn.yes span { color: #000; }
+.arcade-btn.run span { color: var(--accent); }
+
+.arcade-btn:hover { transform: translateY(-1px) scale(1.02); filter: brightness(1.05); }
+
+@media (max-width: 420px) {
+  .cta { flex-direction: column; }
+  .etd { max-height: 44svh; }
+  .logo { max-height: 16svh; }
+}
