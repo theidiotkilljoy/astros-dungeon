@@ -6,15 +6,31 @@
   <meta name="theme-color" content="#232323">
   <title>Afterlife — Astro's Dungeon</title>
   <link rel="stylesheet" href="./assets/css/styles.css">
+  
   <style>
     /* Page-specific tweak: smaller logo on afterlife screen */
     body.afterlife .logo {
       width: clamp(120px, 22vw, 240px);
       max-height: 14svh;
+      /* Afterlife: make "You Died" full-width and tighten spacing */
+    }
+    body.landing.afterlife .landing {
+      padding-left: 0;
+      padding-right: 0;                 /* no side gutters */
+      gap: clamp(4px, 0.8vh, 8px);      /* half the default gap */
+    }
+    body.landing.afterlife .etd {
+      display: block;
+      width: 100vw;                     /* span full page width */
+      max-width: none;
+      height: auto;                     /* keep aspect ratio */
+      max-height: none;                 /* cancel landing cap */
+      object-fit: contain;
     }
   </style>
+  
 </head>
-<body class="landing">
+<body class="landing afterlife">
   <main class="landing">
     <!-- Top: Logo (smaller here) -->
     <img src="./images/logo.png"
