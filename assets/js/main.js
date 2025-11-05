@@ -60,7 +60,7 @@
   });
 })();
 
-// Homepage-specific preloads (button.png, respawn optional)
+// home-specific preloads (button.png, respawn optional)
 (() => {
   const extra = ['images/button.png', 'images/respawn.png'];
   extra.forEach(src => {
