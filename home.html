@@ -11,42 +11,47 @@
 
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+  
 <body class="home">
-  <!-- Brand strip (scrolls away) -->
+  <!-- Brand strip -->
   <div class="site-brand">
     <img src="images/logo.png" alt="Astro's Dungeon" class="site-logo" width="320" height="100" decoding="async">
   </div>
 
   <!-- Sticky nav -->
   <nav class="site-nav" aria-label="Main">
-    <!-- Mobile bar (hamburger only shows on small screens) -->
-    <div class="mobile-bar">
-      <button id="navOpen" class="menu-btn" aria-controls="drawer" aria-expanded="false">☰ Menu</button>
-    </div>
-
-    <!-- Desktop row (hidden on small screens) -->
-    <div class="nav-inner">
-      <a class="nav-btn" href="home.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Home</span></a>
-      <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Apparel</span></a>
-      <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Accessories</span></a>
-      <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Stickers</span></a>
-      <a class="nav-btn" href="other.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Other</span></a>
-      <a class="nav-btn" href="sale.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Sale</span></a>
-    </div>
-  </nav>
-
-  <!-- Mobile drawer (fixed, slides in) -->
-  <aside id="drawer" class="mobile-drawer" aria-hidden="true">
-    <button id="navClose" class="drawer-close" aria-label="Close">×</button>
-
-    <a class="drawer-btn" href="home.html">Home</a>
-    <a class="drawer-btn" href="apparel.html">Apparel</a>
-    <a class="drawer-btn" href="accessories.html">Accessories</a>
-    <a class="drawer-btn" href="stickers.html">Stickers</a>
-    <a class="drawer-btn" href="other.html">Other</a>
-    <a class="drawer-btn" href="sale.html">Sale</a>
-  </aside>
-  <div id="drawerOverlay" class="drawer-overlay"></div>
+  <!-- Mobile-only hamburger -->
+  <div class="mobile-bar">
+    <button class="mobile-nav-toggle" aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Desktop row -->
+  <div class="nav-inner">
+    <a class="nav-btn" href="home.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Home</span></a>
+    <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Apparel</span></a>
+    <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Accessories</span></a>
+    <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Stickers</span></a>
+    <a class="nav-btn" href="other.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Other</span></a>
+    <a class="nav-btn" href="sale.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Sale</span></a>
+  </div>
+</nav>
+<!-- Drawer mobile -->
+<aside id="drawer" class="mobile-drawer" aria-hidden="true">
+  <div class="drawer-header">
+    <img src="images/logo.png" alt="Astro's Dungeon" class="drawer-logo" width="200" height="64" decoding="async">
+    <button class="drawer-close" aria-label="Close menu">×</button>
+  </div>
+  <div class="drawer-nav">
+    <a class="nav-btn" href="home.html"><img src="images/button.png" alt=""><span>Home</span></a>
+    <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt=""><span>Apparel</span></a>
+    <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt=""><span>Accessories</span></a>
+    <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt=""><span>Stickers</span></a>
+    <a class="nav-btn" href="other.html"><img src="images/button.png" alt=""><span>Other</span></a>
+    <a class="nav-btn" href="sale.html"><img src="images/button.png" alt=""><span>Sale</span></a>
+  </div>
+</aside>
+<div class="drawer-overlay" hidden></div>
 
   <!-- Cards auto-populated from data/listings.html via assets/js/listings.js -->
   <main class="container" data-collection="all">
@@ -81,5 +86,6 @@
     closeBtn?.addEventListener('click', close);
     overlay?.addEventListener('click', close);
   </script>
+
 </body>
 </html>
