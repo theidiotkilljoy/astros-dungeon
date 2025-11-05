@@ -177,7 +177,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ===== Home (single-screen landing) ===== */
-body.home { padding: 0; max-width: none; overflow: hidden; }
+body.landing { padding: 0; max-width: none; overflow: hidden; }
+
 
 .landing {
   /* Mobile-safe viewport height provided by JS --vh */
@@ -413,3 +414,7 @@ body.home { padding: 0; max-width: none; overflow: hidden; }
 .product .price { margin: 6px 0 10px; display: flex; gap: 10px; align-items: baseline; }
 .product .price .was { text-decoration: line-through; opacity: 0.7; }
 .product .price .now { color: var(--accent); font-weight: 800; }
+
+@media (min-width: 1024px) {
+  .product .thumb { max-width: 320px; margin-inline: auto; }
+}
