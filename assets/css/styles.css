@@ -259,7 +259,7 @@ body.home { padding: 0; max-width: none; overflow: hidden; }
   .etd { max-height: 42svh; }
 }
 
-/* ===== Homepage: brand + sticky nav + product grid ===== */
+/* ===== home: brand + sticky nav + product grid ===== */
 
 /* Brand strip (scrolls with page) */
 .site-brand {
