@@ -330,3 +330,53 @@ body.afterlife .landing--tight{
   /* Lock page scroll while open */
   body.no-scroll{ overflow:hidden; }
 }
+/* ===================== Afterlife (desktop overlay) ===================== */
+/* Only apply on wider screens so mobile stays as-is */
+@media (min-width: 700px) {
+  body.afterlife .landing {
+    position: relative;
+    /* remove spacing that was causing top crop / bottom crowding */
+    padding: 0;
+    gap: 0;
+    min-height: 100svh; /* ensure full viewport height */
+  }
+
+  /* Make the "You Died" art full-bleed and the stacking anchor */
+  body.afterlife .etd {
+    display: block;
+    width: 100vw;
+    max-width: none;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  /* Centered overlay logo — no more cropping */
+  body.afterlife .logo {
+    position: absolute;
+    top: clamp(12px, 4vh, 48px);   /* nudge from very top */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: clamp(140px, 18vw, 240px);
+    height: auto;
+  }
+
+  /* Centered overlay respawn button near bottom */
+  body.afterlife .cta {
+    position: absolute;
+    bottom: clamp(12px, 5vh, 56px); /* keeps it off the very bottom edge */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    gap: 0; /* remove spacing between single button and anything else */
+  }
+
+  /* Optional fine-tune: scale the button image responsively */
+  body.afterlife .cta .arcade-btn img {
+    width: clamp(200px, 28vw, 360px);
+    height: auto;
+  }
+}
