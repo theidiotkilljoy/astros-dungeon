@@ -199,12 +199,6 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
     max(16px, env(safe-area-inset-left));
 }
 
-.logo {
-  width: clamp(160px, 28vw, 320px);
-  max-height: 18svh;
-  object-fit: contain;
-}
-
 .etd {
   width: min(92vw, 1200px);  /* leaves background edges */
   max-height: 50svh;         /* dominant but fits screen */
@@ -252,8 +246,8 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
 @media (max-width: 480px) {
   .cta { flex-direction: column; }
   .etd { max-height: 56svh; width: 94vw; }
-  .logo { max-height: 14svh; }
 }
+
 
 /* Landscape short viewports: bias space to buttons */
 @media (max-height: 420px) and (orientation: landscape) {
@@ -268,8 +262,9 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
   place-items: center;
   padding: 16px;
 }
+
 .site-logo {
-  width: clamp(120px, 18vw, 220px);
+  width: clamp(120px, 22vw, 240px);
   height: auto;
   display: block;
 }
@@ -435,4 +430,9 @@ body.landing.afterlife .etd {
   height: auto;       /* keep aspect ratio */
   max-height: none;   /* cancel the generic landing cap */
   object-fit: contain;
+}
+/* Unified size for splash-page logos (index + afterlife) */
+.landing .logo {
+  width: clamp(120px, 22vw, 240px);
+  max-height: 14svh;
 }
