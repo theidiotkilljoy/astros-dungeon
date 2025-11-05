@@ -337,14 +337,23 @@ body.home { padding: 0; max-width: none; overflow: hidden; }
   gap: clamp(12px, 2vw, 20px);
   padding: 20px 0 48px;
 }
-.product img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: contain;
+
+/* ---- Square previews without touching originals ---- */
+.product .thumb {
+  position: relative;
+  aspect-ratio: 1 / 1;         /* force square preview box */
+  overflow: hidden;             /* crop visually */
   background: #1e1e1e;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   margin-bottom: 10px;
+}
+.product .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* fill & crop */
+  object-position: center;      /* adjust per-item if needed */
+  display: block;
 }
 
 /* Glow effect on hover using accent */
@@ -367,16 +376,8 @@ body.home { padding: 0; max-width: none; overflow: hidden; }
 @media (max-width: 560px) {
   .cards { grid-template-columns: 1fr; }
 }
-/* --- Product card polish: image badge + price styles + carousel --- */
-.product .thumb { position: relative; }
-.product .thumb img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: contain;
-  background: #1e1e1e;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-}
+
+/* --- Product card polish: badge + price styles + carousel --- */
 .product .badge.off {
   position: absolute; top: 8px; right: 8px;
   background: var(--accent); color: #fff; font-weight: 800;
