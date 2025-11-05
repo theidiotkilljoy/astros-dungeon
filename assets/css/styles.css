@@ -422,3 +422,18 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
 @media (min-width: 1024px) {
   .product .thumb { max-width: 320px; margin-inline: auto; }
 }
+
+/* Afterlife: full-bleed image */
+body.landing.afterlife .landing {
+  padding-left: 0;
+  padding-right: 0;   /* remove side gutters */
+}
+
+body.landing.afterlife .etd {
+  display: block;
+  width: 100vw;       /* span the viewport width */
+  max-width: none;
+  height: auto;       /* keep aspect ratio */
+  max-height: none;   /* cancel the generic landing cap */
+  object-fit: contain;
+}
