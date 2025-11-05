@@ -285,6 +285,7 @@ body.home { padding: 0; max-width: none; overflow: hidden; }
 .site-nav .nav-inner {
   display: flex;
   align-items: center;
+  justify-content: center;            /* center the button row */
   gap: clamp(8px, 1.6vw, 14px);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
