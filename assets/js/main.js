@@ -68,3 +68,55 @@
     img.src = src;
   });
 })();
+
+// --- Mobile drawer (hamburger) ---
+(() => {
+  const toggle   = document.querySelector('.mobile-nav-toggle');
+  const drawer   = document.getElementById('mobile-drawer');
+  const backdrop = document.querySelector('.mobile-drawer-backdrop');
+  const mq       = window.matchMedia('(max-width: 700px)');
+  let lastFocus  = null;
+
+  const openDrawer = () => {
+    if (!drawer) return;
+    lastFocus = document.activeElement;
+    drawer.classList.add('open');
+    drawer.removeAttribute('aria-hidden');
+    backdrop?.classList.add('open');
+    backdrop?.removeAttribute('hidden');
+    document.body.classList.add('menu-open');
+    toggle?.setAttribute('aria-expanded', 'true');
+    // focus first actionable element
+    const first = drawer.querySelector('a, button');
+    first && first.focus();
+  };
+
+  const closeDrawer = () => {
+    if (!drawer) return;
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    backdrop?.classList.remove('open');
+    backdrop?.setAttribute('hidden', '');
+    document.body.classList.remove('menu-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    lastFocus?.focus?.();
+  };
+
+  toggle?.addEventListener('click', () => {
+    drawer?.classList.contains('open') ? closeDrawer() : openDrawer();
+  });
+
+  backdrop?.addEventListener('click', closeDrawer);
+  drawer?.addEventListener('click', (e) => {
+    if (e.target.closest('.drawer-close')) closeDrawer();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
+  });
+
+  // If user rotates or resizes to desktop, ensure drawer is closed
+  mq.addEventListener?.('change', () => {
+    if (!mq.matches) closeDrawer();
+  });
+})();
