@@ -6,6 +6,23 @@
   <meta name="theme-color" content="#232323">
   <title>Afterlife — Astro's Dungeon</title>
   <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <style>
+    /* Allow vertical scroll on Afterlife so nothing gets clipped */
+    body.landing.afterlife { overflow-y: auto; }
+
+    /* Nudge the stack down a bit so the logo clears the top on all phones */
+    body.afterlife .landing--tight {
+      padding-top: max(24px, env(safe-area-inset-top) + 12px);
+    }
+
+    /* Optional: cap the big image slightly on tiny screens so layout breathes */
+    @media (max-width: 480px) {
+      body.landing.afterlife .etd {
+        max-height: 52svh; /* still large, but leaves room for the logo */
+      }
+    }
+  </style>
 </head>
 <body class="landing afterlife">
   <main class="landing landing--tight">
