@@ -261,14 +261,16 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
 .site-logo  { width: clamp(120px, 22vw, 240px); height: auto; display: block; }
 
 /* Sticky nav bar */
-.site-nav {
+.site-nav{
   position: sticky;
+  position: -webkit-sticky; /* Safari */
   top: 0;
-  z-index: 50;
+  z-index: 200;              /* above content, below drawer/overlay */
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   padding: 8px max(12px, env(safe-area-inset-left)) 8px max(12px, env(safe-area-inset-right));
 }
+
 .site-nav .nav-inner {
   display: flex;
   align-items: center;
