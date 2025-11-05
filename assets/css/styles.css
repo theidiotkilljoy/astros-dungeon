@@ -42,7 +42,6 @@ body {
 ::selection { background: color-mix(in srgb, var(--accent) 50%, transparent); }
 
 /* --- Typography --- */
-/* Retro-arcade vibe only on headings */
 h1, h2, h3, h4 {
   font-family:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -176,22 +175,16 @@ img { max-width: 100%; height: auto; display: block; }
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }
 
-/* ===== Home (single-screen landing) ===== */
+/* ===================== Splash / Landing ===================== */
 body.landing { padding: 0; max-width: none; overflow: hidden; }
 
-
 .landing {
-  /* Mobile-safe viewport height provided by JS --vh */
   min-height: calc(var(--vh, 1svh) * 100);
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-items: center;
   align-items: center;
-
-  /* Tighter vertical spacing to lift buttons */
   gap: clamp(8px, 1.6vh, 16px);
-
-  /* Safe-area aware padding (mobile ready) */
   padding:
     max(16px, env(safe-area-inset-top))
     max(16px, env(safe-area-inset-right))
@@ -199,9 +192,24 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
     max(16px, env(safe-area-inset-left));
 }
 
+/* Unsquished logo (shared across splash pages) */
+.landing .logo {
+  width: clamp(120px, 22vw, 240px);
+  height: auto;
+  max-height: none;
+}
+
+/* Tight variant used by index + afterlife */
+.landing--tight {
+  gap: clamp(4px, 1vh, 12px);
+  padding-top: max(8px, env(safe-area-inset-top));
+  /* Lift the stack so buttons aren't glued to the bottom edge */
+  padding-bottom: max(56px, env(safe-area-inset-bottom) + 24px);
+}
+
 .etd {
-  width: min(92vw, 1200px);  /* leaves background edges */
-  max-height: 50svh;         /* dominant but fits screen */
+  width: min(92vw, 1200px);
+  max-height: 50svh;
   object-fit: contain;
 }
 
@@ -219,10 +227,9 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
   position: relative;
   display: inline-block;
   transform-origin: center;
-  transition: transform .12s ease;  /* scale-only */
+  transition: transform .12s ease;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-
   text-decoration: none !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -231,43 +238,27 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
   display: block;
   width: clamp(180px, 40vw, 360px);
   height: auto;
-  box-shadow: none !important;   /* ensure zero shadow */
+  box-shadow: none !important;
   border: 0;
 }
-
-/* Keep the nice scale on hover/press */
 .arcade-btn:hover  { transform: translateY(-1px) scale(1.02); }
 .arcade-btn.pressed { transform: translateY(1px) scale(0.99); }
-
-/* Remove dotted focus outlines per request */
 .arcade-btn:focus, .arcade-btn:focus-visible { outline: none !important; }
 
-/* Small screens: stack buttons and give the art a bit more room */
+/* Small screens */
 @media (max-width: 480px) {
   .cta { flex-direction: column; }
   .etd { max-height: 56svh; width: 94vw; }
 }
 
-
-/* Landscape short viewports: bias space to buttons */
+/* Landscape short viewports */
 @media (max-height: 420px) and (orientation: landscape) {
   .etd { max-height: 42svh; }
 }
 
-/* ===== home: brand + sticky nav + product grid ===== */
-
-/* Brand strip (scrolls with page) */
-.site-brand {
-  display: grid;
-  place-items: center;
-  padding: 16px;
-}
-
-.site-logo {
-  width: clamp(120px, 22vw, 240px);
-  height: auto;
-  display: block;
-}
+/* ===================== Home: brand + sticky nav + product grid ===================== */
+.site-brand { display: grid; place-items: center; padding: 16px; }
+.site-logo  { width: clamp(120px, 22vw, 240px); height: auto; display: block; }
 
 /* Sticky nav bar */
 .site-nav {
@@ -281,7 +272,7 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
 .site-nav .nav-inner {
   display: flex;
   align-items: center;
-  justify-content: center;            /* center the button row */
+  justify-content: center;
   gap: clamp(8px, 1.6vw, 14px);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -316,7 +307,7 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: .06em;
   font-size: clamp(14px, 1.6vw, 18px);
-  color: #000; /* black text over button.png */
+  color: #000;
   pointer-events: none;
   font-family:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -335,11 +326,11 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
   padding: 20px 0 48px;
 }
 
-/* ---- Square previews without touching originals ---- */
+/* Square previews */
 .product .thumb {
   position: relative;
-  aspect-ratio: 1 / 1;         /* force square preview box */
-  overflow: hidden;             /* crop visually */
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
   background: #1e1e1e;
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -348,15 +339,14 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
 .product .thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;            /* fill & crop */
-  object-position: center;      /* adjust per-item if needed */
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 /* If the source is small, don’t stretch it as much */
 .product .thumb.lowres { max-width: 280px; margin-inline: auto; }
 
-
-/* Glow effect on hover using accent */
+/* Glow effect on hover */
 .product:hover {
   box-shadow: 0 0 0 2px var(--accent), 0 8px 28px rgba(150, 55, 47, 0.35);
   transform: translateY(-1px);
@@ -369,22 +359,14 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
   border: 1px solid var(--border);
 }
 
-/* Responsive adjustments */
-@media (max-width: 980px) {
-  .cards { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .cards { grid-template-columns: 1fr; }
-}
+@media (max-width: 980px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
 
-/* --- Product card polish: badge + price styles + carousel --- */
 .product .badge.off {
   position: absolute; top: 8px; right: 8px;
   background: var(--accent); color: #fff; font-weight: 800;
   padding: 4px 8px; border-radius: 999px; font-size: 0.85rem;
 }
-
-/* Carousel arrows — no shadows, big enough to tap */
 .product .img-nav {
   position: absolute; top: 50%;
   transform: translateY(-50%);
@@ -401,47 +383,37 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
 .product .img-nav:hover { transform: translateY(-50%) scale(1.04); }
 .product .img-nav:active { transform: translateY(-50%) scale(0.98); }
 .product .img-nav:focus, .product .img-nav:focus-visible { outline: none; }
-
-/* Index indicator (e.g., 1/3) */
 .product .img-idx {
   position: absolute; bottom: 8px; right: 8px;
   background: rgba(0,0,0,.55); color: #fff;
   font-size: 12px; padding: 2px 6px; border-radius: 6px;
 }
-
 .product .price { margin: 6px 0 10px; display: flex; gap: 10px; align-items: baseline; }
 .product .price .was { text-decoration: line-through; opacity: 0.7; }
 .product .price .now { color: var(--accent); font-weight: 800; }
-
 @media (min-width: 1024px) {
   .product .thumb { max-width: 320px; margin-inline: auto; }
 }
 
-/* Afterlife: full-bleed image */
-body.landing.afterlife .landing {
-  padding-left: 0;
-  padding-right: 0;   /* remove side gutters */
-}
-
+/* ===================== Afterlife: full-bleed art ===================== */
+body.landing.afterlife .landing { padding-left: 0; padding-right: 0; }
 body.landing.afterlife .etd {
   display: block;
-  width: 100vw;       /* span the viewport width */
+  width: 100vw;
   max-width: none;
-  height: auto;       /* keep aspect ratio */
-  max-height: none;   /* cancel the generic landing cap */
+  height: auto;
+  max-height: none;
   object-fit: contain;
 }
 
-/* ===== Mobile drawer (<=700px) ===== */
+/* ===================== Mobile drawer (<=700px) ===================== */
 .mobile-nav-toggle { display: none; }
 .mobile-drawer,
 .mobile-drawer-backdrop { display: none; }
 
 @media (max-width: 700px) {
-  /* Hide the desktop row of buttons on small screens */
   .site-nav .nav-inner { display: none; }
 
-  /* Hamburger button */
   .mobile-nav-toggle{
     display: inline-flex;
     align-items: center;
@@ -449,8 +421,7 @@ body.landing.afterlife .etd {
     width: 40px; height: 40px;
     margin-left: 8px;
     background: transparent;
-    border: 0;
-    border-radius: 8px;
+    border: 0; border-radius: 8px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
@@ -461,7 +432,6 @@ body.landing.afterlife .etd {
     margin: 3px 0;
   }
 
-  /* Off-canvas drawer */
   .mobile-drawer{
     display: block;
     position: fixed;
@@ -499,15 +469,11 @@ body.landing.afterlife .etd {
     display: grid;
     gap: 10px;
   }
-  .mobile-drawer .drawer-nav .nav-btn img{
-    width: 100%;
-    height: auto;
-  }
+  .mobile-drawer .drawer-nav .nav-btn img{ width: 100%; height: auto; }
   .mobile-drawer .drawer-nav .nav-btn span{
-    font-size: clamp(16px, 5vw, 22px); /* bigger text for legibility */
+    font-size: clamp(16px, 5vw, 22px);
   }
 
-  /* Backdrop */
   .mobile-drawer-backdrop{
     display: block;
     position: fixed;
@@ -524,17 +490,15 @@ body.landing.afterlife .etd {
     pointer-events: auto;
   }
 
-  /* Prevent background scroll when drawer is open */
   body.menu-open { overflow: hidden; }
 }
-/* Mobile drawer defaults (hidden on desktop) */
+
+/* Drawer defaults (hidden on desktop) */
 .site-nav .mobile-bar { display: none; align-items: center; padding: 8px 6px; }
 .menu-btn {
   background: var(--accent); color:#fff; border:0; border-radius: 10px;
   padding: 8px 12px; font-weight: 800; letter-spacing: .04em;
 }
-
-/* Fixed slide-in drawer */
 .mobile-drawer {
   position: fixed; top: 0; left: -100%;
   width: 82vw; max-width: 360px; height: 100dvh;
@@ -555,37 +519,13 @@ body.landing.afterlife .etd {
 }
 .drawer-overlay.show { opacity: 1; pointer-events: auto; }
 body.no-scroll { overflow: hidden; }
-
-/* Drawer buttons (use button.png as background) */
 .drawer-btn {
   display: block;
   background: url("../../images/button.png") center/contain no-repeat;
   color: #000; text-transform: uppercase; font-weight: 800; letter-spacing: .06em;
   border: 0; border-radius: 8px; padding: 12px 14px; text-align: center;
 }
-
-/* Mobile breakpoint: hide desktop row, show hamburger */
 @media (max-width: 640px) {
   .site-nav .nav-inner { display: none; }
   .site-nav .mobile-bar { display: flex; }
-}
-
-
-.landing .logo {
-  width: clamp(120px, 22vw, 240px);
-  max-height: 14svh;
-}
-
-/* Index splash: raise the whole stack and fix logo sizing */
-body.index .landing{
-  /* more space above the bottom edge */
-  padding-bottom: max(48px, env(safe-area-inset-bottom) + 24px);
-  /* loosen the spacing between logo / art / buttons */
-  gap: clamp(10px, 2vh, 22px);
-}
-
-/* Remove the height clamp that was flattening the logo */
-body.index .logo{
-  height: auto;
-  max-height: none;
 }
