@@ -11,7 +11,6 @@
 
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-  
 <body class="home">
   <!-- Brand strip -->
   <div class="site-brand">
@@ -20,38 +19,40 @@
 
   <!-- Sticky nav -->
   <nav class="site-nav" aria-label="Main">
-  <!-- Mobile-only hamburger -->
-  <div class="mobile-bar">
-    <button class="mobile-nav-toggle" aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <!-- Desktop row -->
-  <div class="nav-inner">
-    <a class="nav-btn" href="home.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Home</span></a>
-    <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Apparel</span></a>
-    <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Accessories</span></a>
-    <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Stickers</span></a>
-    <a class="nav-btn" href="other.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Other</span></a>
-    <a class="nav-btn" href="sale.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Sale</span></a>
-  </div>
-</nav>
-<!-- Drawer mobile -->
-<aside id="drawer" class="mobile-drawer" aria-hidden="true">
-  <div class="drawer-header">
-    <img src="images/logo.png" alt="Astro's Dungeon" class="drawer-logo" width="200" height="64" decoding="async">
-    <button class="drawer-close" aria-label="Close menu">×</button>
-  </div>
-  <div class="drawer-nav">
-    <a class="nav-btn" href="home.html"><img src="images/button.png" alt=""><span>Home</span></a>
-    <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt=""><span>Apparel</span></a>
-    <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt=""><span>Accessories</span></a>
-    <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt=""><span>Stickers</span></a>
-    <a class="nav-btn" href="other.html"><img src="images/button.png" alt=""><span>Other</span></a>
-    <a class="nav-btn" href="sale.html"><img src="images/button.png" alt=""><span>Sale</span></a>
-  </div>
-</aside>
-<div class="drawer-overlay" hidden></div>
+    <!-- Mobile-only hamburger -->
+    <div class="mobile-bar">
+      <button class="mobile-nav-toggle" aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Desktop row -->
+    <div class="nav-inner">
+      <a class="nav-btn" href="home.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Home</span></a>
+      <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Apparel</span></a>
+      <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Accessories</span></a>
+      <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Stickers</span></a>
+      <a class="nav-btn" href="other.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Other</span></a>
+      <a class="nav-btn" href="sale.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Sale</span></a>
+    </div>
+  </nav>
+
+  <!-- Drawer (mobile) -->
+  <aside id="drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <img src="images/logo.png" alt="Astro's Dungeon" class="drawer-logo" width="200" height="64" decoding="async">
+      <button class="drawer-close" aria-label="Close menu">×</button>
+    </div>
+    <div class="drawer-nav">
+      <a class="nav-btn" href="home.html"><img src="images/button.png" alt=""><span>Home</span></a>
+      <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt=""><span>Apparel</span></a>
+      <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt=""><span>Accessories</span></a>
+      <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt=""><span>Stickers</span></a>
+      <a class="nav-btn" href="other.html"><img src="images/button.png" alt=""><span>Other</span></a>
+      <a class="nav-btn" href="sale.html"><img src="images/button.png" alt=""><span>Sale</span></a>
+    </div>
+  </aside>
+  <div class="drawer-overlay" hidden></div>
 
   <!-- Cards auto-populated from data/listings.html via assets/js/listings.js -->
   <main class="container" data-collection="all">
@@ -61,31 +62,38 @@
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/listings.js"></script>
 
-  <!-- Tiny drawer controller -->
+  <!-- Drawer controller (matches the classes/markup above) -->
   <script>
+  (() => {
+    const btn = document.querySelector('.mobile-nav-toggle');
     const drawer = document.getElementById('drawer');
-    const overlay = document.getElementById('drawerOverlay');
-    const openBtn = document.getElementById('navOpen');
-    const closeBtn = document.getElementById('navClose');
+    const closeBtn = drawer?.querySelector('.drawer-close');
+    const overlay = document.querySelector('.drawer-overlay');
 
-    const open = () => {
+    function openDrawer() {
       drawer.classList.add('open');
       overlay.classList.add('show');
+      overlay.removeAttribute('hidden');
       document.body.classList.add('no-scroll');
-      openBtn.setAttribute('aria-expanded', 'true');
-      drawer.setAttribute('aria-hidden', 'false');
-    };
-    const close = () => {
+      btn?.setAttribute('aria-expanded','true');
+      drawer?.setAttribute('aria-hidden','false');
+    }
+    function closeDrawer() {
       drawer.classList.remove('open');
       overlay.classList.remove('show');
+      overlay.setAttribute('hidden','');
       document.body.classList.remove('no-scroll');
-      openBtn.setAttribute('aria-expanded', 'false');
-      drawer.setAttribute('aria-hidden', 'true');
-    };
-    openBtn?.addEventListener('click', open);
-    closeBtn?.addEventListener('click', close);
-    overlay?.addEventListener('click', close);
-  </script>
+      btn?.setAttribute('aria-expanded','false');
+      drawer?.setAttribute('aria-hidden','true');
+    }
 
+    btn?.addEventListener('click', openDrawer);
+    closeBtn?.addEventListener('click', closeDrawer);
+    overlay?.addEventListener('click', closeDrawer);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
+    });
+  })();
+  </script>
 </body>
 </html>
