@@ -575,3 +575,17 @@ body.no-scroll { overflow: hidden; }
   width: clamp(120px, 22vw, 240px);
   max-height: 14svh;
 }
+
+/* Index splash: raise the whole stack and fix logo sizing */
+body.index .landing{
+  /* more space above the bottom edge */
+  padding-bottom: max(48px, env(safe-area-inset-bottom) + 24px);
+  /* loosen the spacing between logo / art / buttons */
+  gap: clamp(10px, 2vh, 22px);
+}
+
+/* Remove the height clamp that was flattening the logo */
+body.index .logo{
+  height: auto;
+  max-height: none;
+}
