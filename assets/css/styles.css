@@ -529,3 +529,8 @@ body.no-scroll { overflow: hidden; }
   .site-nav .nav-inner { display: none; }
   .site-nav .mobile-bar { display: flex; }
 }
+
+body.afterlife .landing--tight{
+  padding-top: max(14px, env(safe-area-inset-top) + 6px);
+  padding-bottom: max(84px, env(safe-area-inset-bottom) + 28px);
+}
