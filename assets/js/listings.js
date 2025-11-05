@@ -29,7 +29,7 @@
       .map(s => s.trim())
       .filter(Boolean);
 
-    if (parts.length === 0) return [`${base}1.png`];      // default guess
+    if (parts.length === 0) return [`${base}1.png`]; // default guess
     return parts.map(p => (p.includes('/') ? p : base + p));
   };
 
@@ -131,6 +131,34 @@
       if (!grid) return;
       grid.innerHTML = filtered.map(cardHTML).join('');
       attachCarousel(grid);
+
+      // === Grain control: mark low-res thumbs to avoid aggressive upscaling ===
+      const thumbs = document.querySelectorAll('.product .thumb img');
+
+      const markIfLowRes = (img) => {
+        const thumb = img.closest('.thumb');
+        if (!thumb) return;
+
+        // Use actual rendered size for threshold, respect HiDPI (cap at 2x)
+        const rect = thumb.getBoundingClientRect();
+        const previewW = rect?.width || 350;
+        const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+        const threshold = Math.round(previewW * dpr); // e.g., 350@1x, 700@2x
+
+        if (img.naturalWidth && img.naturalWidth < threshold) {
+          thumb.classList.add('lowres'); // CSS shrinks the box to reduce grain
+        }
+      };
+
+      thumbs.forEach((img) => {
+        if (img.complete && img.naturalWidth) {
+          markIfLowRes(img);
+        } else {
+          img.addEventListener('load', () => markIfLowRes(img), { once: true });
+        }
+      });
+      // === end grain control ===
+
     } catch (e) {
       console.error('Failed to load listings:', e);
     }
