@@ -357,6 +357,10 @@ body.landing { padding: 0; max-width: none; overflow: hidden; }
   object-position: center;      /* adjust per-item if needed */
   display: block;
 }
+.product .thumb img { image-rendering: auto; }
+@supports (image-rendering: -webkit-optimize-contrast) {
+  .product .thumb img { image-rendering: -webkit-optimize-contrast; }
+}
 
 /* Glow effect on hover using accent */
 .product:hover {
