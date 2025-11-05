@@ -19,6 +19,15 @@
 
   <!-- Sticky nav (stays pinned) -->
   <nav class="site-nav" aria-label="Main">
+    <!-- Mobile hamburger (hidden on desktop via CSS) -->
+    <button class="mobile-nav-toggle"
+            aria-controls="mobile-drawer"
+            aria-expanded="false"
+            aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Desktop row of buttons -->
     <div class="nav-inner">
       <a class="nav-btn" href="home.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Home</span></a>
       <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Apparel</span></a>
@@ -28,6 +37,24 @@
       <a class="nav-btn" href="sale.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Sale</span></a>
     </div>
   </nav>
+
+  <!-- Mobile side drawer (hidden on desktop via CSS) -->
+  <aside id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <img src="images/logo.png" alt="Astro's Dungeon" class="drawer-logo" width="320" height="100" decoding="async">
+      <button class="drawer-close" aria-label="Close menu">✕</button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Mobile">
+      <a class="nav-btn" href="home.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Home</span></a>
+      <a class="nav-btn" href="apparel.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Apparel</span></a>
+      <a class="nav-btn" href="accessories.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Accessories</span></a>
+      <a class="nav-btn" href="stickers.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Stickers</span></a>
+      <a class="nav-btn" href="other.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Other</span></a>
+      <a class="nav-btn" href="sale.html"><img src="images/button.png" alt="" aria-hidden="true"><span>Sale</span></a>
+    </nav>
+  </aside>
+  <div class="mobile-drawer-backdrop" hidden></div>
 
   <!-- Cards auto-populated from data/listings.html via assets/js/listings.js -->
   <main class="container" data-collection="all">
