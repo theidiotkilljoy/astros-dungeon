@@ -325,14 +325,56 @@ body.landing{ padding:0; max-width:none; overflow:hidden; }
 
 /* ===================== Afterlife (desktop symmetric overlay) ===================== */
 @media (min-width: 700px) {
-  body.afterlife { --ol-offset: clamp(10px, 3.5vh, 34px); }
+  /* Shared vertical gap from YOU DIED center line */
+  body.afterlife {
+    --ol-gap: clamp(20px, 4vh, 56px);
+  }
 
-  body.afterlife .landing{
+  body.afterlife .landing {
     position: relative;
     padding: 0;
     gap: 0;
     min-height: 100svh;
   }
+
+  /* Full-bleed YOU DIED art as the backdrop */
+  body.afterlife .etd {
+    display: block;
+    width: 100vw;
+    max-width: none;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  /* Logo: bottom is `--ol-gap` above center */
+  body.afterlife .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, calc(-100% - var(--ol-gap)));
+    z-index: 2;
+    width: clamp(140px, 18vw, 240px);
+    height: auto;
+  }
+
+  /* Button: top is `--ol-gap` below center (mirrors logo distance) */
+  body.afterlife .cta {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, var(--ol-gap));
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+  }
+
+  body.afterlife .cta .arcade-btn img {
+    width: clamp(220px, 28vw, 360px);
+    height: auto;
+  }
+}
 
   /* Full-bleed art */
   body.afterlife .etd{
