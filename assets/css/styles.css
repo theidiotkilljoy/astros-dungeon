@@ -117,7 +117,7 @@ body.landing{ padding:0; max-width:none; overflow:hidden; }
           max(16px, env(safe-area-inset-left));
 }
 
-/* Unsquished logo (shared across splash pages) */
+/* Unsquished logo on splash pages */
 .landing .logo{
   width:clamp(120px,22vw,240px);
   height:auto; max-height:none;
@@ -167,13 +167,16 @@ body.landing{ padding:0; max-width:none; overflow:hidden; }
 .site-brand{ display:grid; place-items:center; padding:16px; }
 .site-logo{ width:clamp(120px,22vw,240px); height:auto; display:block; }
 
-/* Sticky nav bar — stays above content, below drawer/overlay */
+/* Sticky nav — guaranteed on mobile & desktop */
 .site-nav{
-  position:sticky; position:-webkit-sticky; top:0;
-  z-index:900; /* content < 900 < overlay/drawer */
-  background:var(--bg);
-  border-bottom:1px solid var(--border);
-  padding:8px max(12px, env(safe-area-inset-left)) 8px max(12px, env(safe-area-inset-right));
+  position: sticky; position: -webkit-sticky; /* Safari */
+  top: max(0px, env(safe-area-inset-top));
+  z-index: 1000;           /* below overlay/drawer */
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 8px max(12px, env(safe-area-inset-left)) 8px max(12px, env(safe-area-inset-right));
+  /* create its own stacking context for reliability across browsers */
+  transform: translateZ(0);
 }
 
 /* Desktop row (centered buttons) */
@@ -263,25 +266,14 @@ body.landing{ padding:0; max-width:none; overflow:hidden; }
   .product .thumb{ max-width:320px; margin-inline:auto; }
 }
 
-/* ===================== Afterlife: full-bleed art ===================== */
-body.landing.afterlife .landing{ padding-left:0; padding-right:0; }
-body.landing.afterlife .etd{
-  display:block; width:100vw; max-width:none; height:auto; max-height:none; object-fit:contain;
-}
-/* Slightly more top/bottom room on afterlife so the logo doesn’t clip */
-body.afterlife .landing--tight{
-  padding-top:max(14px, env(safe-area-inset-top) + 6px);
-  padding-bottom:max(84px, env(safe-area-inset-bottom) + 28px);
-}
-
 /* ===================== Mobile drawer (<=700px) ===================== */
-/* Default: drawer/overlay hidden on desktop, hamburger not shown */
+/* Default: drawer/overlay hidden on desktop */
 .mobile-nav-toggle{ display:none; }
 .mobile-drawer{ display:none; }
 .drawer-overlay{ display:none; }
 
 @media (max-width:700px){
-  /* Hide desktop row; show the left-aligned hamburger bar */
+  /* Hide desktop row; show the left-aligned hamburger */
   .site-nav .nav-inner{ display:none; }
   .site-nav .mobile-bar{ display:flex; }
 
@@ -296,21 +288,21 @@ body.afterlife .landing--tight{
   }
   .mobile-nav-toggle span + span{ margin-top:5px; }
 
-  /* Overlay — no blur (prevents fuzzy look) | above nav */
+  /* Overlay above sticky nav */
   .drawer-overlay{
     display:block; position:fixed; inset:0;
     background:rgba(0,0,0,.55);
     opacity:0; pointer-events:none; transition:opacity .25s ease;
-    z-index:1300;
+    z-index: 2000;
   }
   .drawer-overlay.show{ opacity:1; pointer-events:auto; }
 
-  /* Drawer — slide with left for crisper text | highest */
+  /* Drawer highest */
   .mobile-drawer{
     display:block; position:fixed; top:0; left:-100%;
     width:min(88vw, 380px); height:100dvh;
     background:var(--bg); border-right:1px solid var(--border);
-    padding:16px; overflow-y:auto; transition:left .25s ease; z-index:1400;
+    padding:16px; overflow-y:auto; transition:left .25s ease; z-index:2100;
   }
   .mobile-drawer.open{ left:0; }
 
@@ -330,53 +322,42 @@ body.afterlife .landing--tight{
   /* Lock page scroll while open */
   body.no-scroll{ overflow:hidden; }
 }
-/* ===================== Afterlife (desktop overlay) ===================== */
-/* Only apply on wider screens so mobile stays as-is */
+
+/* ===================== Afterlife (desktop symmetric overlay) ===================== */
 @media (min-width: 700px) {
-  body.afterlife .landing {
+  body.afterlife { --ol-offset: clamp(10px, 3.5vh, 34px); }
+
+  body.afterlife .landing{
     position: relative;
-    /* remove spacing that was causing top crop / bottom crowding */
     padding: 0;
     gap: 0;
-    min-height: 100svh; /* ensure full viewport height */
+    min-height: 100svh;
   }
 
-  /* Make the "You Died" art full-bleed and the stacking anchor */
-  body.afterlife .etd {
-    display: block;
-    width: 100vw;
-    max-width: none;
-    height: auto;
-    max-height: none;
-    object-fit: contain;
+  /* Full-bleed art */
+  body.afterlife .etd{
+    display:block; width:100vw; max-width:none; height:auto; max-height:none; object-fit:contain;
   }
 
-  /* Centered overlay logo — no more cropping */
-  body.afterlife .logo {
-    position: absolute;
-    top: clamp(12px, 4vh, 48px);   /* nudge from very top */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
+  /* Logo just above center */
+  body.afterlife .logo{
+    position:absolute; left:50%;
+    top: max(calc(env(safe-area-inset-top) + 8px), calc(50% - var(--ol-offset)));
+    transform: translate(-50%, -100%);
+    z-index:2;
     width: clamp(140px, 18vw, 240px);
-    height: auto;
+    height:auto;
   }
 
-  /* Centered overlay respawn button near bottom */
-  body.afterlife .cta {
-    position: absolute;
-    bottom: clamp(12px, 5vh, 56px); /* keeps it off the very bottom edge */
-    left: 50%;
+  /* Button just below center */
+  body.afterlife .cta{
+    position:absolute; left:50%;
+    top: min(calc(100% - (env(safe-area-inset-bottom) + 72px)), calc(50% + var(--ol-offset)));
     transform: translateX(-50%);
-    z-index: 2;
-    margin: 0;
-    padding: 0;
-    gap: 0; /* remove spacing between single button and anything else */
+    z-index:2; margin:0; padding:0; gap:0;
   }
-
-  /* Optional fine-tune: scale the button image responsively */
-  body.afterlife .cta .arcade-btn img {
-    width: clamp(200px, 28vw, 360px);
-    height: auto;
+  body.afterlife .cta .arcade-btn img{
+    width: clamp(220px, 28vw, 360px);
+    height:auto;
   }
 }
