@@ -6,42 +6,28 @@
   <meta name="theme-color" content="#232323">
   <title>Afterlife — Astro's Dungeon</title>
   <link rel="stylesheet" href="./assets/css/styles.css">
-
-  <style>
-    /* Allow vertical scroll on Afterlife so nothing gets clipped */
-    body.landing.afterlife { overflow-y: auto; }
-
-    /* Nudge the stack down a bit so the logo clears the top on all phones */
-    body.afterlife .landing--tight {
-      padding-top: max(24px, env(safe-area-inset-top) + 12px);
-    }
-
-    /* Optional: cap the big image slightly on tiny screens so layout breathes */
-    @media (max-width: 480px) {
-      body.landing.afterlife .etd {
-        max-height: 52svh; /* still large, but leaves room for the logo */
-      }
-    }
-  </style>
 </head>
 <body class="landing afterlife">
   <main class="landing landing--tight">
-    <!-- Top: Logo -->
+    <!-- Top: Logo (overlayed on desktop via CSS) -->
     <img src="./images/logo.png"
          alt="Astro's Dungeon"
          class="logo"
          width="640" height="200" decoding="async">
 
-    <!-- Big center image (full-bleed via CSS) -->
+    <!-- Big center image -->
     <img src="./images/youdied.png"
          alt="You Died"
          class="etd"
          width="1600" height="900" decoding="async">
 
-    <!-- Single respawn button -->
+    <!-- Single respawn button (overlayed on desktop via CSS) -->
     <nav class="cta" aria-label="Afterlife actions">
       <a class="arcade-btn respawn" href="./home.html" aria-label="Respawn">
-        <img src="./images/respawn.png" alt="Respawn" width="600" height="200" decoding="async">
+        <img src="./images/respawn.png"
+             alt="Respawn"
+             width="600" height="200"
+             decoding="async">
       </a>
     </nav>
   </main>
