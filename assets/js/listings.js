@@ -60,7 +60,8 @@
     const parts = (imagesCell || '')
       .split(',')
       .map(s => s.trim())
-      .filter(Boolean);
+      .filter(Boolean)
+      .filter(u => !u.includes('/video/') && !u.includes('v.etsystatic.com/video'));
 
     // IMPORTANT: if nothing is specified, we do *not* guess a local path.
     // We'll try Etsy oEmbed for a thumbnail and otherwise fall back to a placeholder.
@@ -130,7 +131,7 @@
         </div>
         <h3>${item.name}</h3>
         ${priceHTML(item)}
-        <p>${item.desc}</p>
+        ${item.desc ? `<p>${item.desc}</p>` : ``}
         <script type="application/json" class="images-json">${JSON.stringify(item.images)}</script>
       </article>
     `;
@@ -202,6 +203,7 @@
 
       const current = img.getAttribute('src') || '';
       const isPlaceholder = current.startsWith('data:image/svg+xml');
+    if (!isPlaceholder) return;
 
       const data = await fetchOembed(url);
       const thumb = data?.thumbnail_url;
