@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#232323">
-  <title>Home — Astro's Dungeon</title>
+  <title>Astro's Dungeon Home</title>
 
   <!-- IMPORTANT for project sites -->
   <base href="/astros-dungeon/">
@@ -14,10 +14,9 @@
 <body class="home">
   <!-- Brand strip -->
   <div class="site-brand">
-    <img src="images/logo.png" alt="Astro's Dungeon" class="site-logo" width="320" height="100" decoding="async">
+    <img src="images/logo.png" alt="Astro's Dungeon" class="site-logo" width="260" height="84" decoding="async">
   </div>
 
-  <!-- Sticky nav -->
   <nav class="site-nav" aria-label="Main">
     <!-- Mobile-only hamburger -->
     <div class="mobile-bar">
@@ -60,7 +59,7 @@
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/listings.js"></script>
 
-  <!-- Drawer controller (matches the classes/markup above) -->
+  <!-- Drawer controller, matches the classes/markup above -->
   <script>
   (() => {
     const btn = document.querySelector('.mobile-nav-toggle');
@@ -88,9 +87,7 @@
     btn?.addEventListener('click', openDrawer);
     closeBtn?.addEventListener('click', closeDrawer);
     overlay?.addEventListener('click', closeDrawer);
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
-    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
   })();
   </script>
 </body>
