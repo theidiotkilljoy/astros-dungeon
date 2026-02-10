@@ -1,80 +1,274 @@
 <!doctype html>
-<!-- This file is only for data. The table stays hidden. -->
-<table id="listings" aria-hidden="true" style="display:none">
-  <thead>
-    <tr>
-      <th>item name</th>
-      <th>price</th>
-      <th>description</th>
-      <th>type</th>         <!-- apparel | accessories | stickers | other -->
-      <th>sale</th>         <!-- true | false -->
-      <th>percent off</th>  <!-- e.g. 20 for 20% -->
-      <th>images</th>       <!-- comma-separated: images/products/productname/product1.jpg, product2.jpg -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Hardcover Notebook</td>
-      <td>15.00</td>
-      <td>Polyurethane hardcover notebook, 240 pages, A5 lined ruling. Has closure strap, ribbon bookmark, and inside back pocket. 5.5" x 8.3".</td>
-      <td>other</td>
-      <td>false</td>
-      <td></td>
-      <td>images/products/ddnotebook/ddnotebook1.jpg, images/products/ddnotebook/ddnotebook2.jpg</td>
-    </tr>
-    <tr>
-      <td>Dungeon Demon Patch</td>
-      <td>6.00</td>
-      <td>Glow-in-the-dark iron-on patch.</td>
-      <td>accessories</td>
-      <td>true</td>
-      <td>15</td>
-      <td>images/products/ddpatch/ddpatch1.jpg, images/products/ddpatch/ddpatch2.jpg, images/products/ddpatch/ddpatch3.jpg</td>
-    </tr>
-    <tr>
-      <td>Dungeon Master Sticker</td>
-      <td>3.00</td>
-      <td>Single vinyl sticker. 3" by 3" in size. Easy peel back.</td>
-      <td>stickers</td>
-      <td>false</td>
-      <td></td>
-      <td>images/products/dmsticker/dmsticker1.png, images/products/dmsticker/dmsticker2.png</td>
-    </tr>
-    <tr>
-      <td>Game Over Sticker</td>
-      <td>3.00</td>
-      <td>Single vinyl sticker. 2.75" by 3.5" in size. Easy peel back.</td>
-      <td>stickers</td>
-      <td>false</td>
-      <td></td>
-      <td>images/products/gosticker/gosticker1.png, images/products/gosticker/gosticker2.png</td>
-    </tr>
-    <tr>
-      <td>Dungeon Demon Sticker</td>
-      <td>3.00</td>
-      <td>Single vinyl sticker. 4.0” by 3.43" in size. Easy peel back.</td>
-      <td>stickers</td>
-      <td>false</td>
-      <td></td>
-      <td>images/products/ddsticker/ddsticker1.png, images/products/ddsticker/ddsticker2.png</td>
-    </tr>
-    <tr>
-      <td>Ceramic Mug</td>
-      <td>25</td>
-      <td>14 oz ceramic camping-style mug. Choice of two exclusive designs made only for this product.</td>
-      <td>other</td>
-      <td>false</td>
-      <td></td>
-      <td>images/products/mug/mug1.jpg, images/products/mug/mug2.jpg, images/products/mug/mug3.jpg</td>
-    </tr>
-    <tr>
-      <td>Drink Coozie</td>
-      <td>6</td>
-      <td>4mm thick insulated polyurethane. Fits 12 oz cans. Semi-glossy print.</td>
-      <td>other</td>
-      <td>true</td>
-      <td>15</td>
-      <td>images/products/coozie/coozie1.jpg</td>
-    </tr>
-  </tbody>
-</table>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Listings Data</title>
+  </head>
+  <body>
+    <!--
+      Schema (used by assets/js/listings.js):
+      Name | URL | Price | Sale Price | Description | Type | Images
+
+      Notes:
+      - URL should be the Etsy “Share & Save” style link (your shop subdomain).
+      - Images is optional. If blank, the site will try to pull a thumbnail via Etsy oEmbed.
+      - If you provide a subpath like "notebook/1.png", it will be treated as images/products/notebook/1.png.
+      - You can also paste full https image URLs.
+    -->
+    <table id="listings">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>URL</th>
+          <th>Price</th>
+          <th>Sale Price</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Images</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Eat the Rich Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/4447781849/eat-the-rich-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>The perfect tee for all your party / rich-eating needs.</td>
+          <td>apparel</td>
+          <td>https://i.etsystatic.com/54686536/r/il/7bb822/6733122939/il_794xN.6733122939_71ry.jpg,https://v.etsystatic.com/video/upload/ac_none,du_15,q_auto:good/IMG_5554_xe1btp.jpg</td>
+        </tr>
+
+        <tr>
+          <td>Final Girl Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/4447781392/final-girl-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Soft everyday tee with a Final Girl vibe.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Game Over Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/4432956733/game-over-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Classic Game Over graphic tee.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Dungeon Demon Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812643898/dungeon-demon-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Dungeon Demon tee — for chaotic good runs.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Enter the Dungeon Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812646450/enter-the-dungeon-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Enter the Dungeon tee — clean, bold, and gamer-core.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Tummy Aches Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826843613/tummy-aches-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Relatable tee for the chronically-stressed adventurer.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Astro's Dungeon Classic Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812637550/astros-dungeon-classic-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Classic Astro's Dungeon logo tee.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Dungeon Demon Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826828567/dungeon-demon-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Cozy fleece crewneck with the Dungeon Demon graphic.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Dungeon Master Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826833055/dungeon-master-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Cozy fleece crewneck for the Dungeon Master at heart.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Out of Lives Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826834519/out-of-lives-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Fleece crewneck for when you've used up every last life.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Enter the Dungeon Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1817036177/enter-the-dungeon-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Fleece crewneck with Enter the Dungeon artwork.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Ouija Planchette Choker Necklace</td>
+          <td>https://astrosdungeon.etsy.com/listing/4441490638/ouija-planchette-choker-necklace</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Ouija planchette choker necklace — lightweight and spooky-cute.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Gold Heart Choker Necklace</td>
+          <td>https://astrosdungeon.etsy.com/listing/4441503902/gold-heart-choker-necklace</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Gold heart choker necklace — simple, shiny, and sweet.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Ouija Planchette Earrings</td>
+          <td>https://astrosdungeon.etsy.com/listing/4441501772/ouija-planchette-earrings</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Ouija planchette earrings (multiple options).</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Deathmoth Earrings</td>
+          <td>https://astrosdungeon.etsy.com/listing/1856247113/deathmoth-earrings</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Deathmoth earrings — the perfect dark little accent piece.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Leather Dice Bag</td>
+          <td>https://astrosdungeon.etsy.com/listing/1890887443/leather-dice-bag</td>
+          <td>8</td>
+          <td></td>
+          <td>Durable leather dice bag that holds a full set of dice.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>Can Cooler Koozie</td>
+          <td>https://astrosdungeon.etsy.com/listing/1884507973/can-cooler-koozie</td>
+          <td>5</td>
+          <td></td>
+          <td>Keep your drink cold at the table (or at the campsite).</td>
+          <td>accessories</td>
+          <td>can-cooler-koozie/1.png</td>
+        </tr>
+
+        <tr>
+          <td>Dungeon Master Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826848165/dungeon-master-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Dungeon Master sticker — perfect for laptops, bottles, and notebooks.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
+
+        <tr>
+          <td>Game Over Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826846285/game-over-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Game Over sticker — slap it on your gear and respawn.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
+
+        <tr>
+          <td>Out of Lives Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812654604/out-of-lives-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Out of Lives sticker — the universal mood.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
+
+        <tr>
+          <td>Dungeon Demon Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1841661292/dungeon-demon-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Dungeon Demon sticker — for your laptop, water bottle, or spellbook.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
+
+        <tr>
+          <td>Glow-in-the-Dark Iron-On Patch</td>
+          <td>https://astrosdungeon.etsy.com/listing/4357305711/glow-in-the-dark-iron-on-patch</td>
+          <td>8</td>
+          <td></td>
+          <td>Glow-in-the-dark patch — easy iron-on application.</td>
+          <td>other</td>
+          <td>patch/1.png,patch/2.png</td>
+        </tr>
+
+        <tr>
+          <td>Notebook - Multiple Options</td>
+          <td>https://astrosdungeon.etsy.com/listing/1843700692/notebook-multiple-options</td>
+          <td>15</td>
+          <td></td>
+          <td>Wire-bound notebook with multiple sizes, styles, and paper options.</td>
+          <td>other</td>
+          <td>notebook/1.png,notebook/2.png</td>
+        </tr>
+
+        <tr>
+          <td>Ceramic Camping Mug</td>
+          <td>https://astrosdungeon.etsy.com/listing/1889823055/ceramic-camping-mug</td>
+          <td>20</td>
+          <td></td>
+          <td>Durable ceramic camping mug for coffee, tea, or potions.</td>
+          <td>other</td>
+          <td>mug/1.png</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
