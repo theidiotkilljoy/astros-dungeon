@@ -1,35 +1,48 @@
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Listings Data</title>
-</head>
-<body>
+<!doctype html>
 <!--
-      Schema (used by assets/js/listings.js):
-      Name | URL | Price | Sale Price | Description | Type | Images
+  Astro's Dungeon — product data table
 
-      Notes:
-      - URL should be the Etsy “Share & Save” style link (your shop subdomain).
-      - Images is optional. If blank, the site will try to pull a thumbnail via Etsy oEmbed.
-      - If you provide a subpath like "notebook/1.png", it will be treated as images/products/notebook/1.png.
-      - You can also paste full https image URLs.
+  Edit ONLY the <tbody> rows.
+  The site reads this file and renders product cards automatically.
+
+  Columns:
+    1) category    : apparel | accessories | stickers | other
+    2) title       : what you want displayed on the card
+    3) share_url   : your Share & Save listing link (use https://astrosdungeon.etsy.com/listing/<id>/<slug>)
+    4) price       : 20.00 (or $20.00)
+    5) sale_price  : leave blank if not on sale; otherwise 15.00 (or $15.00)
+    6) images      : comma-separated image URLs/paths (first one is the card thumbnail)
+    7) description : optional; leave blank to hide
+
+  Notes:
+    • Images can be Etsy CDN links (i.etsystatic.com) OR local paths like images/products/myitem/1.png
+    • If you leave images blank, the site will try images/products/<slug>/1.png and then fall back to images/logo.png
+-->
+<table id="listings" aria-hidden="true" style="display:none">
+  <thead>
+    <tr>
+      <th>category</th>
+      <th>title</th>
+      <th>share_url</th>
+      <th>price</th>
+      <th>sale_price</th>
+      <th>images</th>
+      <th>description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Example row (duplicate and edit). Remove this comment block when you're done. -->
+    <!--
+    <tr>
+      <td>apparel</td>
+      <td>Eat the Rich Tee Shirt</td>
+      <td>https://astrosdungeon.etsy.com/listing/4447781849/eat-the-rich-tee-shirt</td>
+      <td>20.00</td>
+      <td></td>
+      <td>https://i.etsystatic.com/....../il_794xN.xxxxx.jpg, https://i.etsystatic.com/....../il_794xN.yyyyy.jpg</td>
+      <td></td>
+    </tr>
     -->
-<table id="listings">
-<thead>
-<tr>
-<th>Name</th>
-<th>URL</th>
-<th>Price</th>
-<th>Sale Price</th>
-<th>Description</th>
-<th>Type</th>
-<th>Images</th>
-</tr>
-</thead>
-<tbody><tr><td>Tummy Aches Hoodie</td><td>https://astrosdungeon.etsy.com/listing/4445279091/tummy-aches-hoodie</td><td>40.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/b84ace/7651765771/il_794xN.7651765771_7ztp.jpg</td></tr><tr><td>Revive Me Ceramic Camping Mug</td><td>https://astrosdungeon.etsy.com/listing/4445323893/revive-me-ceramic-camping-mug</td><td>20.00</td><td></td><td></td><td>accessories</td><td>https://i.etsystatic.com/55458302/r/il/8a43a7/6724039246/il_794xN.6724039246_im0j.jpg</td></tr><tr><td>Gold Heart Choker</td><td>https://astrosdungeon.etsy.com/listing/4435130060/gold-heart-choker</td><td>15.00</td><td>10.50</td><td></td><td>accessories</td><td>https://i.etsystatic.com/55458302/r/il/d6419f/7652140981/il_794xN.7652140981_4qj4.jpg</td></tr><tr><td>Ouija Planchette Choker Necklace (Multiple Options)</td><td>https://astrosdungeon.etsy.com/listing/4447756809/ouija-planchette-choker-necklace-multiple</td><td>12.00</td><td>8.40</td><td></td><td>accessories</td><td>https://i.etsystatic.com/55458302/r/il/238fba/7651763793/il_794xN.7651763793_ol00.jpg</td></tr><tr><td>Eat the Rich Tee Shirt</td><td>https://astrosdungeon.etsy.com/listing/4447781849/eat-the-rich-tee-shirt</td><td>20.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/c534ef/7643570829/il_794xN.7643570829_sucm.jpg</td></tr><tr><td>Final Girl Tee Shirt</td><td>https://astrosdungeon.etsy.com/listing/4445803407/final-girl-tee-shirt</td><td>20.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/e3ec3a/7651417271/il_794xN.7651417271_chw0.jpg</td></tr><tr><td>Dungeon Demon Fleece Crewneck</td><td>https://astrosdungeon.etsy.com/listing/4488417371/dungeon-demon-fleece-crewneck</td><td>50.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/0d5765/6434085914/il_794xN.6434085914_s91m.jpg</td></tr><tr><td>Dungeon Master Fleece Crewneck</td><td>https://astrosdungeon.etsy.com/listing/4447900523/dungeon-master-fleece-crewneck</td><td>55.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/18f2b1/7552160502/il_794xN.7552160502_4syt.jpg</td></tr><tr><td>Game Over T-Shirt</td><td>https://astrosdungeon.etsy.com/listing/4383576467/game-over-t-shirt</td><td>25.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/bc822d/7552160154/il_794xN.7552160154_dwj3.jpg</td></tr><tr><td>Ouija Planchette Earrings</td><td>https://astrosdungeon.etsy.com/listing/1856265305/ouija-planchette-earrings</td><td>12.00</td><td>8.40</td><td></td><td>accessories</td><td>https://i.etsystatic.com/55458302/r/il/6dcb4c/6606764438/il_794xN.6606764438_7io1.jpg</td></tr><tr><td>Dungeon Master Sticker - DnD Stickers</td><td>https://astrosdungeon.etsy.com/listing/4447336337/dungeon-master-sticker-dnd-stickers</td><td>4.00</td><td></td><td></td><td>stickers</td><td>https://i.etsystatic.com/55458302/r/il/c21cf8/6654432216/il_794xN.6654432216_ku0o.jpg</td></tr><tr><td>Can Cooler Koozie</td><td>https://astrosdungeon.etsy.com/listing/4448757079/can-cooler-koozie</td><td>8.00</td><td></td><td></td><td>accessories</td><td>https://i.etsystatic.com/55458302/r/il/6bec93/6590492699/il_794xN.6590492699_spkh.jpg</td></tr><tr><td>Glow In The Dark Retro Patch</td><td>https://astrosdungeon.etsy.com/listing/4447372635/glow-in-the-dark-retro-patch</td><td>5.00</td><td></td><td></td><td>accessories</td><td>images/products/patch.jpg</td></tr><tr><td>Astro's Dungeon Tee Shirt</td><td>https://astrosdungeon.etsy.com/listing/4297893550/astros-dungeon-tee-shirt</td><td>13.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/cbbf5f/6954408855/il_794xN.6954408855_lalh.jpg</td></tr><tr><td>Leather Dice Bag Pouch (D&amp;D Accessories)</td><td>https://astrosdungeon.etsy.com/listing/4451886893/leather-dice-bag-pouch-dd</td><td>8.00</td><td></td><td></td><td>accessories</td><td>https://i.etsystatic.com/55458302/r/il/378b26/6982788612/il_794xN.6982788612_xcwa.jpg</td></tr><tr><td>Out Of Lives Fleece Crewneck</td><td>https://astrosdungeon.etsy.com/listing/4447727065/out-of-lives-fleece-crewneck</td><td>50.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/8341e8/6517969691/il_794xN.6517969691_flpj.jpg</td></tr><tr><td>Enter The Dungeon Fleece Crewneck</td><td>https://astrosdungeon.etsy.com/listing/4447890821/enter-the-dungeon-fleece-crewneck</td><td>55.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/df2d2b/6967451822/il_794xN.6967451822_omyb.jpg</td></tr><tr><td>Enter The Dungeon T-Shirt</td><td>https://astrosdungeon.etsy.com/listing/4448001953/enter-the-dungeon-t-shirt</td><td>20.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/a9449c/6848949747/il_794xN.6848949747_6qgw.jpg</td></tr><tr><td>Dungeon Demon T-Shirt</td><td>https://astrosdungeon.etsy.com/listing/4447997593/dungeon-demon-t-shirt</td><td>20.00</td><td></td><td></td><td>apparel</td><td>https://i.etsystatic.com/55458302/r/il/66b15a/6972781930/il_794xN.6972781930_1qqp.jpg</td></tr><tr><td>Game Over Sticker</td><td>https://astrosdungeon.etsy.com/listing/4450090247/game-over-sticker</td><td>4.00</td><td></td><td></td><td>stickers</td><td>https://i.etsystatic.com/55458302/r/il/68899c/6943213820/il_794xN.6943213820_i6yl.jpg</td></tr><tr><td>Out Of Lives Sticker</td><td>https://astrosdungeon.etsy.com/listing/4450083631/out-of-lives-sticker</td><td>4.00</td><td></td><td></td><td>stickers</td><td>https://i.etsystatic.com/55458302/r/il/bdb7c1/6943223890/il_794xN.6943223890_92t1.jpg</td></tr><tr><td>Notebook: Astro's Dungeon (Multiple Options)</td><td>https://astrosdungeon.etsy.com/listing/4450096111/notebook-astros-dungeon-multiple-options</td><td>6.80</td><td>5.78</td><td></td><td>other</td><td>https://i.etsystatic.com/55458302/r/il/949c9f/6943265160/il_794xN.6943265160_j5lq.jpg</td></tr><tr><td>Dungeon Demon Sticker</td><td>https://astrosdungeon.etsy.com/listing/4450091285/dungeon-demon-sticker</td><td>4.00</td><td></td><td></td><td>stickers</td><td>https://i.etsystatic.com/55458302/r/il/9f93c0/6943211460/il_794xN.6943211460_p9mt.jpg</td></tr><tr><td>Deathmoth Earrings</td><td>https://astrosdungeon.etsy.com/listing/4441436269/deathmoth-earrings</td><td>12.00</td><td>10.20</td><td></td><td>accessories</td><td>https://i.etsystatic.com/55458302/r/il/7b0bec/7209014875/il_794xN.7209014875_kx12.jpg</td></tr></tbody>
+  </tbody>
 </table>
-</body>
-</html>
