@@ -1,359 +1,42 @@
-from pathlib import Path
-
-new_html = """<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#232323">
   <title>Astro's Dungeon</title>
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- Extra styling for the Etsy-style grid on this page -->
-  <style>
-    /* Keep this lightweight so it plays nice with your existing styles.css */
-    .etsy-section{
-      width:min(980px, 92vw);
-      margin: 1.25rem auto 0;
-      padding: 1.25rem;
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 18px;
-      background: rgba(0,0,0,.35);
-      box-shadow: 0 10px 40px rgba(0,0,0,.35);
-    }
-    .etsy-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:1rem;
-      margin-bottom: .85rem;
-    }
-    .etsy-head h2{
-      margin:0;
-      font-size: 1.35rem;
-      letter-spacing:.02em;
-    }
-    .etsy-head p{
-      margin:0;
-      opacity:.8;
-      font-size:.95rem;
-    }
-    .etsy-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: .9rem;
-    }
-    @media (max-width: 900px){
-      .etsy-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    @media (max-width: 560px){
-      .etsy-grid{ grid-template-columns: 1fr; }
-    }
-    .p-card{
-      display:flex;
-      flex-direction:column;
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      overflow:hidden;
-      text-decoration:none;
-      color: inherit;
-      background: rgba(8,8,10,.55);
-      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-    }
-    .p-card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.20);
-      box-shadow: 0 10px 28px rgba(0,0,0,.35);
-    }
-    .p-thumb{
-      aspect-ratio: 4/3;
-      background: rgba(255,255,255,.06);
-      position:relative;
-    }
-    .p-thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .p-badges{
-      position:absolute;
-      left:.6rem;
-      top:.6rem;
-      display:flex;
-      gap:.35rem;
-      flex-wrap:wrap;
-    }
-    .badge{
-      font-size:.78rem;
-      padding:.22rem .5rem;
-      border-radius: 999px;
-      background: rgba(0,0,0,.65);
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(6px);
-    }
-    .p-body{
-      padding: .85rem .9rem .95rem;
-      display:flex;
-      flex-direction:column;
-      gap:.35rem;
-      min-height: 7.75rem;
-    }
-    .p-title{
-      margin:0;
-      font-size: 1.02rem;
-      line-height:1.2;
-    }
-    .p-row{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:.75rem;
-    }
-    .p-price{
-      font-weight: 700;
-      letter-spacing:.01em;
-    }
-    .p-meta{
-      opacity:.78;
-      font-size:.88rem;
-      white-space:nowrap;
-    }
-    .p-desc{
-      margin:.1rem 0 0;
-      opacity:.82;
-      font-size:.92rem;
-      line-height:1.25;
-    }
-    .etsy-actions{
-      display:flex;
-      gap:.6rem;
-      flex-wrap:wrap;
-      margin-top: .95rem;
-    }
-    .small-note{
-      margin:.75rem 0 0;
-      opacity:.72;
-      font-size:.85rem;
-    }
-    code.inline{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:.9em;
-      background: rgba(255,255,255,.08);
-      padding: .1rem .35rem;
-      border-radius: 6px;
-    }
-  </style>
+  <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
+<body class="landing index">
+  <main class="landing landing--tight">
+    <!-- Top: Logo -->
+    <img src="./images/logo.png"
+         alt="Astro's Dungeon"
+         class="logo"
+         width="640"
+         height="200"
+         decoding="async">
 
-<body>
+    <!-- Middle: ETD art -->
+    <img src="./images/etd.png"
+         alt="Exiting the Dungeon"
+         class="etd"
+         width="1600"
+         height="900"
+         decoding="async">
 
-  <!-- Main container -->
-  <div class="wrap">
+    <!-- Bottom: Two buttons (both go to home) -->
+    <nav class="cta" aria-label="Primary choices">
+      <a class="arcade-btn yes" href="./home.html" aria-label="Enter the dungeon">
+        <img src="./images/yes.png" alt="Yes" width="600" height="200" decoding="async">
+      </a>
 
-    <!-- Top spacing -->
-    <div class="top-spacer"></div>
-
-    <!-- Logo / Header -->
-    <img src="img/astro-logo.png" alt="Astro's Dungeon Logo" class="logo"/>
-
-    <!-- Navigation -->
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a class="arcade-btn run" href="./home.html" aria-label="Run (also to home)">
+        <img src="./images/run.png" alt="Run" width="600" height="200" decoding="async">
+      </a>
     </nav>
+  </main>
 
-    <!-- Art panel -->
-    <div class="art-panel">
-      <img src="img/ETD.png" alt="Enter the Dungeon Artwork" class="art-img"/>
-    </div>
-
-    <!-- Blurb -->
-    <p class="blurb">
-      This is a mock landing page for <strong>Astro’s Dungeon</strong>.
-      Below is an example of how your Etsy listings can appear on your own site
-      (with a “View on Etsy” click-through).
-    </p>
-
-    <!-- Etsy-style preview section (static fallback + optional live JSON feed) -->
-    <section class="etsy-section" aria-label="Etsy listings preview">
-      <div class="etsy-head">
-        <div>
-          <h2>Fresh Loot</h2>
-          <p>Previewing items from your Etsy shop.</p>
-        </div>
-        <p class="p-meta">Shop sales: <strong>22</strong></p>
-      </div>
-
-      <div id="etsyGrid" class="etsy-grid">
-
-        <!-- Fallback cards (these show even if JS is disabled) -->
-        <a class="p-card" href="https://www.etsy.com/listing/1812637550/astros-dungeon-classic-t-shirt" target="_blank" rel="noopener">
-          <div class="p-thumb">
-            <img src="https://i.etsystatic.com/55458302/r/il/7db778/6670391096/il_794xN.6670391096_awk7.jpg" alt="Astro's Dungeon Classic Tee Shirt" loading="lazy" referrerpolicy="no-referrer"/>
-            <div class="p-badges"><span class="badge">Tee</span></div>
-          </div>
-          <div class="p-body">
-            <h3 class="p-title">Astro's Dungeon Classic Tee Shirt</h3>
-            <div class="p-row">
-              <div class="p-price">$13.00</div>
-              <div class="p-meta">Ships from Sacramento</div>
-            </div>
-            <p class="p-desc">Classic logo on the front (pocket-area) with a clean back.</p>
-          </div>
-        </a>
-
-        <a class="p-card" href="https://www.etsy.com/listing/1826843613/tummy-aches-tee-shirt" target="_blank" rel="noopener">
-          <div class="p-thumb">
-            <img src="https://i.etsystatic.com/55458302/r/il/b84ace/6482215029/il_794xN.6482215029_sde1.jpg" alt="Tummy Aches Tee Shirt" loading="lazy" referrerpolicy="no-referrer"/>
-            <div class="p-badges">
-              <span class="badge">Tee</span>
-              <span class="badge">Only 8 left</span>
-            </div>
-          </div>
-          <div class="p-body">
-            <h3 class="p-title">Tummy Aches Tee Shirt</h3>
-            <div class="p-row">
-              <div class="p-price">$20.00</div>
-              <div class="p-meta">Exchanges OK</div>
-            </div>
-            <p class="p-desc">Dark Souls meme energy, 100% cotton, preshrunk.</p>
-          </div>
-        </a>
-
-        <a class="p-card" href="https://www.etsy.com/listing/1817036177/enter-the-dungeon-fleece-crewneck" target="_blank" rel="noopener">
-          <div class="p-thumb">
-            <img src="https://i.etsystatic.com/55458302/r/il/3a216a/6666352566/il_794xN.6666352566_e7ni.jpg" alt="Enter the Dungeon Fleece Crewneck" loading="lazy" referrerpolicy="no-referrer"/>
-            <div class="p-badges">
-              <span class="badge">Crewneck</span>
-              <span class="badge">Only 5 left</span>
-            </div>
-          </div>
-          <div class="p-body">
-            <h3 class="p-title">Enter the Dungeon Fleece Crewneck</h3>
-            <div class="p-row">
-              <div class="p-price">$50.00</div>
-              <div class="p-meta">Cozy fit</div>
-            </div>
-            <p class="p-desc">“Enter the Dungeon” — 50/50 cotton-poly blend, unisex sizing.</p>
-          </div>
-        </a>
-
-        <a class="p-card" href="https://www.etsy.com/listing/1889823055/ceramic-camping-mug-astros-dungeon" target="_blank" rel="noopener">
-          <div class="p-thumb">
-            <img src="https://i.etsystatic.com/55458302/r/il/74d291/6772066193/il_794xN.6772066193_s7ky.jpg" alt="Ceramic Camping Mug" loading="lazy" referrerpolicy="no-referrer"/>
-            <div class="p-badges"><span class="badge">Mug</span><span class="badge">Only 2 left</span></div>
-          </div>
-          <div class="p-body">
-            <h3 class="p-title">Ceramic Camping Mug</h3>
-            <div class="p-row">
-              <div class="p-price">$20.00</div>
-              <div class="p-meta">14 oz</div>
-            </div>
-            <p class="p-desc">Ceramic camp-mug look, heavy/stable feel, multiple designs.</p>
-          </div>
-        </a>
-
-        <a class="p-card" href="https://www.etsy.com/listing/1811928867/dungeon-demon-tee-shirt" target="_blank" rel="noopener">
-          <div class="p-thumb">
-            <img src="https://i.etsystatic.com/55458302/r/il/6ca388/6698243261/il_794xN.6698243261_qpps.jpg" alt="Dungeon Demon Tee Shirt" loading="lazy" referrerpolicy="no-referrer"/>
-            <div class="p-badges"><span class="badge">Tee</span></div>
-          </div>
-          <div class="p-body">
-            <h3 class="p-title">Dungeon Demon Tee Shirt</h3>
-            <div class="p-row">
-              <div class="p-price">$20.00</div>
-              <div class="p-meta">Unisex</div>
-            </div>
-            <p class="p-desc">Dungeon demon graphic tee — click through for sizes/colors.</p>
-          </div>
-        </a>
-
-        <a class="p-card" href="https://www.etsy.com/listing/1826848165/dungeon-master-sticker" target="_blank" rel="noopener">
-          <div class="p-thumb">
-            <img src="https://i.etsystatic.com/55458302/r/il/f0d0ef/6482223813/il_75x75.6482223813_rgz9.jpg" alt="Dungeon Master Sticker" loading="lazy" referrerpolicy="no-referrer"/>
-            <div class="p-badges"><span class="badge">Sticker</span><span class="badge">Free ship</span></div>
-          </div>
-          <div class="p-body">
-            <h3 class="p-title">Dungeon Master Sticker</h3>
-            <div class="p-row">
-              <div class="p-price">$3.00</div>
-              <div class="p-meta">Vinyl 3&quot;×3&quot;</div>
-            </div>
-            <p class="p-desc">Single vinyl sticker. Easy peel-back. Perfect for laptops/water bottles.</p>
-          </div>
-        </a>
-
-      </div>
-
-      <div class="etsy-actions">
-        <a class="button" href="https://astrosdungeon.etsy.com" target="_blank" rel="noopener">View all on Etsy</a>
-        <a class="button secondary" href="home.html">Back to your site</a>
-      </div>
-
-      <p class="small-note">
-        Want this to update automatically without manually editing HTML? Have this page fetch a JSON feed like
-        <code class="inline">/etsy-products.json</code> that you generate server-side (Cloudflare Worker / Netlify Function / small Node script).
-        This is the same idea as Pattern syncing — you just control it.
-      </p>
-    </section>
-
-    <!-- Your original button row -->
-    <div class="button-row">
-      <a href="home.html" class="button">Yes</a>
-      <a href="home.html" class="button secondary">Run</a>
-    </div>
-
-    <p class="footnote">For those who play.</p>
-
-  </div>
-
-  <!-- Optional: auto-replace the fallback cards using a JSON feed you host -->
-  <script>
-    (async () => {
-      const endpoint = "./etsy-products.json"; // you create/host this
-      const grid = document.getElementById("etsyGrid");
-      if (!grid) return;
-
-      function esc(s){ return String(s ?? "").replace(/[&<>"']/g, (c)=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\\"":"&quot;","'":"&#39;" }[c])); }
-
-      function card(p){
-        const badges = (p.badges || []).slice(0,3).map(b => `<span class="badge">${esc(b)}</span>`).join("");
-        return `
-          <a class="p-card" href="${esc(p.url)}" target="_blank" rel="noopener">
-            <div class="p-thumb">
-              <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" referrerpolicy="no-referrer"/>
-              ${badges ? `<div class="p-badges">${badges}</div>` : ``}
-            </div>
-            <div class="p-body">
-              <h3 class="p-title">${esc(p.title)}</h3>
-              <div class="p-row">
-                <div class="p-price">${esc(p.price || "")}</div>
-                <div class="p-meta">${esc(p.meta || "")}</div>
-              </div>
-              <p class="p-desc">${esc(p.desc || "")}</p>
-            </div>
-          </a>
-        `;
-      }
-
-      try{
-        const res = await fetch(endpoint, { cache: "no-store" });
-        if(!res.ok) return;
-        const data = await res.json();
-        if(!Array.isArray(data) || data.length === 0) return;
-        grid.innerHTML = data.map(card).join("");
-      }catch(e){
-        // silently keep fallback cards
-      }
-    })();
-  </script>
-
+  <script type="module" src="./assets/js/main.js"></script>
 </body>
 </html>
-"""
-
-out_path = Path("/mnt/data/index_etsy_mock.html")
-out_path.write_text(new_html, encoding="utf-8")
-str(out_path), out_path.stat().st_size
