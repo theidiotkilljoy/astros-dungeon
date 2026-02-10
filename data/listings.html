@@ -1,270 +1,274 @@
-// assets/js/listings.js
-(() => {
-  const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Listings Data</title>
+  </head>
+  <body>
+    <!--
+      Schema (used by assets/js/listings.js):
+      Name | URL | Price | Sale Price | Description | Type | Images
 
-  const parseBool = (v) => {
-    if (!v) return false;
-    const s = String(v).trim().toLowerCase();
-    return s === 'true' || s === 'yes' || s === 'y' || s === '1';
-  };
-  const clamp = (n, min, max) => Math.min(Math.max(Number(n) || 0, min), max);
+      Notes:
+      - URL should be the Etsy “Share & Save” style link (your shop subdomain).
+      - Images is optional. If blank, the site will try to pull a thumbnail via Etsy oEmbed.
+      - If you provide a subpath like "notebook/1.png", it will be treated as images/products/notebook/1.png.
+      - You can also paste full https image URLs.
+    -->
+    <table id="listings">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>URL</th>
+          <th>Price</th>
+          <th>Sale Price</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Images</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Eat the Rich Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/4447781849/eat-the-rich-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>The perfect tee for all your party / rich-eating needs.</td>
+          <td>apparel</td>
+          <td>https://i.etsystatic.com/54686536/r/il/7bb822/6733122939/il_794xN.6733122939_71ry.jpg,https://v.etsystatic.com/video/upload/ac_none,du_15,q_auto:good/IMG_5554_xe1btp.jpg</td>
+        </tr>
 
-  const slugify = (s) =>
-    String(s || '')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .replace(/-{2,}/g, '-');
+        <tr>
+          <td>Final Girl Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/4447781392/final-girl-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Soft everyday tee with a Final Girl vibe.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-  const getCollection = () => {
-    const el = document.querySelector('main[data-collection]');
-    return (el?.dataset?.collection || 'all').toLowerCase();
-  };
+        <tr>
+          <td>Game Over Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/4432956733/game-over-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Classic Game Over graphic tee.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-  // Lightweight client-side thumb sync (no API key): try Etsy's oEmbed endpoint.
-  // If Etsy blocks CORS in a user's browser, we fall back to whatever images are in the table.
-  const oembedCache = new Map();
-  const fetchOembed = async (listingUrl) => {
-    const key = String(listingUrl || '');
-    if (!key) return null;
-    if (oembedCache.has(key)) return oembedCache.get(key);
-    const p = fetch(`https://www.etsy.com/oembed?url=${encodeURIComponent(key)}&format=json`, {
-      cache: 'force-cache'
-    })
-      .then(r => (r.ok ? r.json() : null))
-      .catch(() => null);
-    oembedCache.set(key, p);
-    return p;
-  };
+        <tr>
+          <td>Dungeon Demon Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812643898/dungeon-demon-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Dungeon Demon tee — for chaotic good runs.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-  const placeholderDataUri =
-    'data:image/svg+xml;charset=utf-8,' +
-    encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
-        <defs>
-          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#0b0b0b"/>
-            <stop offset="1" stop-color="#1a0f17"/>
-          </linearGradient>
-        </defs>
-        <rect width="800" height="800" fill="url(#g)"/>
-        <circle cx="400" cy="360" r="160" fill="#2a1b25"/>
-        <path d="M320 520h160" stroke="#c9a8b8" stroke-width="18" stroke-linecap="round" opacity=".8"/>
-        <text x="400" y="675" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="42" fill="#c9a8b8" opacity=".9">Astro's Dungeon</text>
-      </svg>
-    `);
+        <tr>
+          <td>Enter the Dungeon Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812646450/enter-the-dungeon-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Enter the Dungeon tee — clean, bold, and gamer-core.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-  const resolveImages = (name, imagesCell) => {
-    const slug = slugify(name);
-    const base = `images/products/${slug}/`;
-    const parts = (imagesCell || '')
-      .split(',')
-      .map(s => s.trim())
-      .filter(Boolean);
+        <tr>
+          <td>Tummy Aches Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826843613/tummy-aches-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Relatable tee for the chronically-stressed adventurer.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-    // IMPORTANT: if nothing is specified, we do *not* guess a local path.
-    // We'll try Etsy oEmbed for a thumbnail and otherwise fall back to a placeholder.
-    if (parts.length === 0) return [placeholderDataUri];
+        <tr>
+          <td>Astro's Dungeon Classic Tee Shirt</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812637550/astros-dungeon-classic-tee-shirt</td>
+          <td>20</td>
+          <td></td>
+          <td>Classic Astro's Dungeon logo tee.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-    return parts.map((p) => {
-      // Absolute / special cases
-      if (/^(https?:)?\/\//i.test(p) || p.startsWith('data:')) return p;
+        <tr>
+          <td>Dungeon Demon Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826828567/dungeon-demon-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Cozy fleece crewneck with the Dungeon Demon graphic.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-      // If caller already included a full site-relative path, keep it
-      if (p.startsWith('images/')) return p;
+        <tr>
+          <td>Dungeon Master Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826833055/dungeon-master-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Cozy fleece crewneck for the Dungeon Master at heart.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-      // If they provided a subpath like "notebook/1.png", treat it as under images/products/
-      if (p.includes('/')) return `images/products/${p}`;
+        <tr>
+          <td>Out of Lives Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826834519/out-of-lives-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Fleece crewneck for when you've used up every last life.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-      // Otherwise assume it's a filename inside images/products/<slug>/
-      return base + p;
-    });
-  };
+        <tr>
+          <td>Enter the Dungeon Fleece Crewneck</td>
+          <td>https://astrosdungeon.etsy.com/listing/1817036177/enter-the-dungeon-fleece-crewneck</td>
+          <td>50</td>
+          <td></td>
+          <td>Fleece crewneck with Enter the Dungeon artwork.</td>
+          <td>apparel</td>
+          <td></td>
+        </tr>
 
-  const rowToItem = (tr) => {
-    const tds = Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim());
-    // Schema: Name | URL | Price | Sale Price | Description | Type | Images
-    const [name, url, priceRaw, saleRaw, desc, type, imagesRaw] = tds;
-    const price = Number(priceRaw);
-    const salePrice = saleRaw ? Number(saleRaw) : null;
-    const onSale = Number.isFinite(salePrice) && salePrice > 0 && salePrice < price;
-    const pct = onSale ? clamp(Math.round((1 - salePrice / price) * 100), 0, 95) : 0;
-    const images = resolveImages(name, imagesRaw);
+        <tr>
+          <td>Ouija Planchette Choker Necklace</td>
+          <td>https://astrosdungeon.etsy.com/listing/4441490638/ouija-planchette-choker-necklace</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Ouija planchette choker necklace — lightweight and spooky-cute.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
 
-    return {
-      name,
-      url,
-      price,
-      desc,
-      type: (type || '').toLowerCase(),
-      onSale,
-      pct,
-      salePrice,
-      images
-    };
-  };
+        <tr>
+          <td>Gold Heart Choker Necklace</td>
+          <td>https://astrosdungeon.etsy.com/listing/4441503902/gold-heart-choker-necklace</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Gold heart choker necklace — simple, shiny, and sweet.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
 
-  const priceHTML = (item) => item.onSale
-    ? `<div class="price">
-         <span class="was">${fmt.format(item.price)}</span>
-         <span class="now">${fmt.format(item.salePrice)}</span>
-       </div>`
-    : `<div class="price"><span class="now">${fmt.format(item.price)}</span></div>`;
+        <tr>
+          <td>Ouija Planchette Earrings</td>
+          <td>https://astrosdungeon.etsy.com/listing/4441501772/ouija-planchette-earrings</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Ouija planchette earrings (multiple options).</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
 
-  const badgeHTML = (item) => item.onSale
-    ? `<span class="badge off">-${item.pct}%</span>`
-    : '';
+        <tr>
+          <td>Deathmoth Earrings</td>
+          <td>https://astrosdungeon.etsy.com/listing/1856247113/deathmoth-earrings</td>
+          <td>12</td>
+          <td>8.4</td>
+          <td>Deathmoth earrings — the perfect dark little accent piece.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
 
-  const cardHTML = (item) => {
-    const hasMulti = item.images.length > 1;
-    return `
-      <article class="card product" role="link" tabindex="0" data-url="${item.url || ''}" data-index="0" data-count="${item.images.length}">
-        <div class="thumb">
-          <img src="${item.images[0]}" alt="${item.name}">
-          ${badgeHTML(item)}
-          ${hasMulti ? `
-            <button class="img-nav prev" type="button" aria-label="Previous image">‹</button>
-            <button class="img-nav next" type="button" aria-label="Next image">›</button>
-            <span class="img-idx">1/${item.images.length}</span>
-          ` : ``}
-        </div>
-        <h3>${item.name}</h3>
-        ${priceHTML(item)}
-        <p>${item.desc}</p>
-        <script type="application/json" class="images-json">${JSON.stringify(item.images)}</script>
-      </article>
-    `;
-  };
+        <tr>
+          <td>Leather Dice Bag</td>
+          <td>https://astrosdungeon.etsy.com/listing/1890887443/leather-dice-bag</td>
+          <td>8</td>
+          <td></td>
+          <td>Durable leather dice bag that holds a full set of dice.</td>
+          <td>accessories</td>
+          <td></td>
+        </tr>
 
-  const shouldInclude = (item, collection) => {
-    if (collection === 'all') return true;
-    if (collection === 'sale') return item.onSale;
-    return item.type === collection;
-  };
+        <tr>
+          <td>Can Cooler Koozie</td>
+          <td>https://astrosdungeon.etsy.com/listing/1884507973/can-cooler-koozie</td>
+          <td>5</td>
+          <td></td>
+          <td>Keep your drink cold at the table (or at the campsite).</td>
+          <td>accessories</td>
+          <td>can-cooler-koozie/1.png</td>
+        </tr>
 
-  const updateThumb = (card, idx) => {
-    const imgs = JSON.parse(card.querySelector('.images-json').textContent);
-    const img = card.querySelector('.thumb img');
-    const badge = card.querySelector('.img-idx');
-    const count = imgs.length;
-    const next = ((idx % count) + count) % count;
-    card.dataset.index = String(next);
-    img.src = imgs[next];
-    if (badge) badge.textContent = `${next + 1}/${count}`;
-  };
+        <tr>
+          <td>Dungeon Master Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826848165/dungeon-master-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Dungeon Master sticker — perfect for laptops, bottles, and notebooks.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
 
-  const attachCarousel = (root) => {
-    // Event delegation for all cards
-    root.addEventListener('click', (e) => {
-      const btn = e.target.closest('.img-nav');
-      if (!btn) return;
-      e.preventDefault();
-      e.stopPropagation();
-      const card = btn.closest('.product');
-      if (!card) return;
-      const dir = btn.classList.contains('next') ? 1 : -1;
-      const idx = Number(card.dataset.index || 0) + dir;
-      updateThumb(card, idx);
-    }, false);
+        <tr>
+          <td>Game Over Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1826846285/game-over-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Game Over sticker — slap it on your gear and respawn.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
 
-    // Card click-through to Etsy (Share & Save links live in data-url)
-    root.addEventListener('click', (e) => {
-      const card = e.target.closest('.product');
-      if (!card) return;
-      // ignore clicks on carousel buttons (handled above)
-      if (e.target.closest('.img-nav')) return;
-      const url = card.dataset.url;
-      if (url) window.open(url, '_blank', 'noopener');
-    }, false);
+        <tr>
+          <td>Out of Lives Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1812654604/out-of-lives-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Out of Lives sticker — the universal mood.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
 
-    // Keyboard: Enter/Space opens the listing
-    root.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      const card = e.target.closest('.product');
-      if (!card) return;
-      const url = card.dataset.url;
-      if (!url) return;
-      e.preventDefault();
-      window.open(url, '_blank', 'noopener');
-    }, false);
-  };
+        <tr>
+          <td>Dungeon Demon Sticker</td>
+          <td>https://astrosdungeon.etsy.com/listing/1841661292/dungeon-demon-sticker</td>
+          <td>3</td>
+          <td></td>
+          <td>Dungeon Demon sticker — for your laptop, water bottle, or spellbook.</td>
+          <td>stickers</td>
+          <td>stickers/1.png</td>
+        </tr>
 
-  const hydrateEtsyThumbs = async (root) => {
-    const cards = Array.from(root.querySelectorAll('.product[data-url]'));
-    await Promise.all(cards.map(async (card) => {
-      const url = card.dataset.url;
-      if (!url) return;
+        <tr>
+          <td>Glow-in-the-Dark Iron-On Patch</td>
+          <td>https://astrosdungeon.etsy.com/listing/4357305711/glow-in-the-dark-iron-on-patch</td>
+          <td>8</td>
+          <td></td>
+          <td>Glow-in-the-dark patch — easy iron-on application.</td>
+          <td>other</td>
+          <td>patch/1.png,patch/2.png</td>
+        </tr>
 
-      // If the first image is already a real URL (not our placeholder data-uri), leave it.
-      const img = card.querySelector('.thumb img');
-      const jsonEl = card.querySelector('.images-json');
-      if (!img || !jsonEl) return;
+        <tr>
+          <td>Notebook - Multiple Options</td>
+          <td>https://astrosdungeon.etsy.com/listing/1843700692/notebook-multiple-options</td>
+          <td>15</td>
+          <td></td>
+          <td>Wire-bound notebook with multiple sizes, styles, and paper options.</td>
+          <td>other</td>
+          <td>notebook/1.png,notebook/2.png</td>
+        </tr>
 
-      const current = img.getAttribute('src') || '';
-      const isPlaceholder = current.startsWith('data:image/svg+xml');
-
-      const data = await fetchOembed(url);
-      const thumb = data?.thumbnail_url;
-      if (!thumb) return;
-
-      // Swap primary image with Etsy thumb, keep carousel working
-      const imgs = JSON.parse(jsonEl.textContent || '[]');
-      if (Array.isArray(imgs) && imgs.length) {
-        imgs[0] = thumb;
-        jsonEl.textContent = JSON.stringify(imgs);
-        if (isPlaceholder) img.src = thumb;
-      }
-    }));
-  };
-
-  const load = async () => {
-    try {
-      const res = await fetch('data/listings.html', { cache: 'no-store' });
-      const txt = await res.text();
-      const doc = new DOMParser().parseFromString(txt, 'text/html');
-      const rows = Array.from(doc.querySelectorAll('#listings tbody tr'));
-      const items = rows.map(rowToItem);
-
-      const collection = getCollection();
-      const filtered = items.filter(it => shouldInclude(it, collection));
-
-      const grid = document.querySelector('.cards');
-      if (!grid) return;
-      grid.innerHTML = filtered.map(cardHTML).join('');
-      attachCarousel(grid);
-      hydrateEtsyThumbs(grid);
-
-      // === Grain control: mark low-res thumbs to avoid aggressive upscaling ===
-      const thumbs = document.querySelectorAll('.product .thumb img');
-
-      const markIfLowRes = (img) => {
-        const thumb = img.closest('.thumb');
-        if (!thumb) return;
-
-        // Use actual rendered size for threshold, respect HiDPI (cap at 2x)
-        const rect = thumb.getBoundingClientRect();
-        const previewW = rect?.width || 350;
-        const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
-        const threshold = Math.round(previewW * dpr); // e.g., 350@1x, 700@2x
-
-        if (img.naturalWidth && img.naturalWidth < threshold) {
-          thumb.classList.add('lowres'); // CSS shrinks the box to reduce grain
-        }
-      };
-
-      thumbs.forEach((img) => {
-        if (img.complete && img.naturalWidth) {
-          markIfLowRes(img);
-        } else {
-          img.addEventListener('load', () => markIfLowRes(img), { once: true });
-        }
-      });
-      // === end grain control ===
-
-    } catch (e) {
-      console.error('Failed to load listings:', e);
-    }
-  };
-
-  if (document.querySelector('.cards')) load();
-})();
+        <tr>
+          <td>Ceramic Camping Mug</td>
+          <td>https://astrosdungeon.etsy.com/listing/1889823055/ceramic-camping-mug</td>
+          <td>20</td>
+          <td></td>
+          <td>Durable ceramic camping mug for coffee, tea, or potions.</td>
+          <td>other</td>
+          <td>mug/1.png</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
