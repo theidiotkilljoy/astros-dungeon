@@ -185,7 +185,7 @@
 
   const load = async () => {
     try {
-      const res = await fetch('data/listings.html', { cache: 'no-store' });
+      const res = await fetch('/data/listings.html', { cache: 'no-store' });
       const txt = await res.text();
       const doc = new DOMParser().parseFromString(txt, 'text/html');
 
