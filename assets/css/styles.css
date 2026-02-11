@@ -1,6 +1,4 @@
-/* assets/css/styles.css */
-
-/* --- Reset / base --- */
+/* --- base --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,7 +15,7 @@
   --radius: 10px;
 }
 
-/* --- Global --- */
+/* --- global --- */
 html,
 body {
   height: 100%;
@@ -37,12 +35,12 @@ body {
   padding: 2rem 1.25rem;
 }
 
-/* Text selection */
+/* text selection */
 ::selection {
   background: color-mix(in srgb, var(--accent) 50%, transparent);
 }
 
-/* --- Typography --- */
+/* --- typography --- */
 h1,
 h2,
 h3,
@@ -89,7 +87,7 @@ small,
   opacity: 0.6;
 }
 
-/* --- Links (exclude button anchors) --- */
+/* --- links --- */
 a:not(.arcade-btn) {
   color: var(--accent);
   text-decoration: none;
@@ -106,7 +104,7 @@ a:not(.arcade-btn):focus-visible {
   border-radius: 4px;
 }
 
-/* --- Layout helpers --- */
+/* --- layout helpers --- */
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -124,7 +122,7 @@ a:not(.arcade-btn):focus-visible {
   margin-top: var(--stack-gap, 1rem);
 }
 
-/* --- Cards (generic) --- */
+/* --- cards --- */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -144,7 +142,7 @@ a:not(.arcade-btn):focus-visible {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* --- Buttons (generic) --- */
+/* --- buttons --- */
 .button,
 button,
 [type="button"],
@@ -177,7 +175,7 @@ button:active {
   border: 2px solid var(--accent);
 }
 
-/* --- Forms --- */
+/* --- forms --- */
 input,
 select,
 textarea {
@@ -200,14 +198,14 @@ textarea:focus {
   outline-offset: 2px;
 }
 
-/* --- Images --- */
+/* --- images --- */
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* --- Utility --- */
+/* --- utility --- */
 .accent { color: var(--accent) !important; }
 .bg-accent { background: var(--accent) !important; color: #fff !important; }
 .spacer { height: 1rem; }
@@ -219,7 +217,7 @@ img {
 }
 .round { border-radius: var(--radius); }
 
-/* Pixel-ish border */
+/* pixel-ish border */
 .pixel-border {
   position: relative;
   border: 0;
@@ -235,7 +233,7 @@ img {
   border-radius: var(--radius);
 }
 
-/* --- Motion safety --- */
+/* --- motion safety --- */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
@@ -245,7 +243,54 @@ img {
   }
 }
 
-/* ===================== Splash / Landing (index) ===================== */
+/* --- footer: socials + gallery disclaimer --- */
+.site-footer{
+  text-align:center;
+  padding: 22px 0 10px;
+  color: var(--accent);
+}
+
+.social-links{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap: 18px;
+  margin: 0 auto 12px;
+}
+
+.social-links a{
+  color: var(--accent);
+  border-bottom: 0 !important;
+  display:inline-flex;
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.social-links a:hover{
+  opacity: 0.9;
+}
+
+.social-links a:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.social-links svg{
+  width: 30px;
+  height: 30px;
+  display:block;
+}
+
+.gallery-disclaimer{
+  color: var(--accent);
+  font-size: 0.9rem;
+  max-width: 900px;
+  margin: 0 auto 18px;
+  padding: 0 10px;
+}
+
+
+/* --- splash / landing --- */
 body.landing {
   padding: 0;
   max-width: none;
@@ -266,14 +311,14 @@ body.landing {
     max(16px, env(safe-area-inset-left));
 }
 
-/* Logo on splash */
+/* logo on splash */
 .landing .logo {
   width: clamp(120px, 22vw, 240px);
   height: auto;
   max-height: none;
 }
 
-/* Tighter stack for index splash */
+/* tighter stack for index splash */
 .landing--tight {
   gap: clamp(4px, 1vh, 12px);
   padding-top: max(8px, env(safe-area-inset-top));
@@ -286,7 +331,7 @@ body.landing {
   object-fit: contain;
 }
 
-/* Splash buttons row */
+/* splash buttons row */
 .cta {
   display: flex;
   align-items: center;
@@ -295,7 +340,7 @@ body.landing {
   width: 100%;
 }
 
-/* Image-only buttons on splash */
+/* image-only buttons on splash */
 .arcade-btn {
   position: relative;
   display: inline-block;
@@ -334,7 +379,7 @@ body.landing {
   .etd { max-height: 42svh; }
 }
 
-/* ===================== Home: brand + sticky nav + product grid ===================== */
+/* --- home: brand + sticky nav + product grid --- */
 .site-brand {
   display: grid;
   place-items: center;
@@ -346,7 +391,7 @@ body.landing {
   display: block;
 }
 
-/* Sticky nav (desktop + mobile) */
+/* sticky nav (desktop + mobile) */
 .site-nav {
   position: sticky;
   position: -webkit-sticky; /* Safari */
@@ -360,7 +405,7 @@ body.landing {
   transform: translateZ(0); /* ensure reliable stickiness */
 }
 
-/* Desktop nav row */
+/* desktop nav row */
 .site-nav .nav-inner {
   display: flex;
   align-items: center;
@@ -371,13 +416,13 @@ body.landing {
   padding: 4px 2px;
 }
 
-/* Mobile bar hidden by default */
+/* mobile bar hidden by default */
 .site-nav .mobile-bar {
   display: none;
   align-items: center;
 }
 
-/* Nav buttons */
+/* nav buttons */
 .nav-btn {
   position: relative;
   display: inline-block;
@@ -423,7 +468,7 @@ body.landing {
   outline: none !important;
 }
 
-/* Product grid */
+/* product grid */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -431,7 +476,7 @@ body.landing {
   padding: 20px 0 48px;
 }
 
-/* Product thumbs */
+/* product thumbs */
 .product .thumb {
   position: relative;
   aspect-ratio: 1 / 1;
@@ -453,7 +498,7 @@ body.landing {
   margin-inline: auto;
 }
 
-/* Product hover */
+/* product hover */
 .product:hover {
   box-shadow:
     0 0 0 2px var(--accent),
@@ -478,7 +523,7 @@ body.landing {
   .cards { grid-template-columns: 1fr; }
 }
 
-/* Product extras */
+/* product extras */
 .product .badge.off {
   position: absolute;
   top: 8px;
@@ -551,18 +596,17 @@ body.landing {
   }
 }
 
-/* ===================== Mobile drawer (<=700px) ===================== */
-/* Hidden on desktop */
+/* --- mobile drawer (<=700px) --- */
 .mobile-nav-toggle { display: none; }
 .mobile-drawer { display: none; }
 .drawer-overlay { display: none; }
 
 @media (max-width: 700px) {
-  /* Hide desktop row; show hamburger */
+  /* hide desktop row / show hamburger */
   .site-nav .nav-inner { display: none; }
   .site-nav .mobile-bar { display: flex; }
 
-  /* Hamburger */
+  /* hamburger */
   .mobile-nav-toggle {
     display: inline-flex;
     flex-direction: column;
@@ -589,7 +633,7 @@ body.landing {
     margin-top: 5px;
   }
 
-  /* Overlay above sticky nav */
+  /* overlay above sticky nav */
   .drawer-overlay {
     display: block;
     position: fixed;
@@ -605,7 +649,7 @@ body.landing {
     pointer-events: auto;
   }
 
-  /* Drawer */
+  /* drawer */
   .mobile-drawer {
     display: block;
     position: fixed;
