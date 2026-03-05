@@ -6,7 +6,29 @@
   <meta name="theme-color" content="#232323">
   <title>Astro's Dungeon</title>
   <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <!-- Mobile-only spacing tweaks (does NOT affect desktop) -->
+  <style>
+    @media (max-width: 640px){
+      /* Nudge the top logo DOWN a bit */
+      body.landing.index .logo{
+        transform: translateY(18px);
+      }
+
+      /* Pull the button group UP a bit */
+      body.landing.index .cta{
+        transform: translateY(-28px);
+      }
+
+      /* Optional: slightly tighten overall vertical padding if your CSS is adding a lot */
+      body.landing.index main.landing--tight{
+        padding-top: 24px;
+        padding-bottom: 24px;
+      }
+    }
+  </style>
 </head>
+
 <body class="landing index">
   <main class="landing landing--tight">
     <!-- Top: Logo -->
