@@ -1,23 +1,15 @@
 <!doctype html>
 <!--
-  Product data table
-
-  Edit ONLY the <tbody> rows.
-  The site reads this file and renders product cards automatically.
-
-  Columns:
-    1) category    : apparel | accessories | stickers | other
-    2) title       : what you want displayed on the card
-    3) share_url   : your Share & Save listing link (use https://astrosdungeon.etsy.com/listing/<id>/<slug>)
-    4) price       : 20.00 (or $20.00)
-    5) sale_price  : leave blank if not on sale; otherwise 15.00 (or $15.00)
-    6) images      : comma-separated image URLs/paths (first one is the card thumbnail)
-    7) description : optional; leave blank to hide
-
-  Notes:
-    • Images can be Etsy CDN links (i.etsystatic.com) OR local paths like images/products/myitem/1.png
-    • If you leave images blank, the site will try images/products/<slug>/1.png and then fall back to images/logo.png
+  Product data table columns:
+    1) category: apparel / accessories / stickers / other
+    2) title
+    3) share_url: Share & Save listing link (use https://astrosdungeon.etsy.com/listing/<id>/<slug>)
+    4) price: e.g. 20.00
+    5) sale_price: leave blank if not on sale
+    6) images: URLs separrated by commas or kicak paths e.g. images/products/myitem/1.png. if blank, will try images/products/<slug>/1.png and then fall back to images/logo.png
+    7) description 
 -->
+
 <table id="listings" aria-hidden="true" style="display:none">
   <thead>
     <tr>
