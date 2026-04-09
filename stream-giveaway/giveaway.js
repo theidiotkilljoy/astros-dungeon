@@ -207,25 +207,24 @@
               ? `<p class="giveaway-desc">${safeDesc}</p>`
               : `<p class="giveaway-desc">This item is currently being featured on stream.</p>`
           }
-
+          
           <div class="giveaway-actions">
             ${
               item.url
-                ? `<a class="button" href="${escapeHTML(
+                ? `<a class="giveaway-cta" href="${escapeHTML(
                     item.url
-                  )}" target="_blank" rel="noopener">View listing</a>`
+                  )}" target="_blank" rel="noopener">View on Etsy</a>`
                 : ""
             }
             ${
               CONFIG.streamUrl
-                ? `<a class="button outline" href="${escapeHTML(
+                ? `<a class="giveaway-cta" href="${escapeHTML(
                     CONFIG.streamUrl
                   )}" target="_blank" rel="noopener">Watch stream</a>`
                 : ""
             }
-            <a class="button outline" href="/">Back to site</a>
           </div>
-
+    
           <div class="giveaway-meta">
             <p class="muted">Tip: you can swap the featured item without editing this file by linking this page with <code>?item=${item.slug}</code>.</p>
             <p class="muted">Example: <code>/stream-giveaway/?item=${item.slug}</code></p>
