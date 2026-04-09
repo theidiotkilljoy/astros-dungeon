@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Astro's Dungeon | xxAsstro Stream Giveaway</title>
+  <meta
+    name="description"
+    content="Check out the current Astro's Dungeon stream giveaway item."
+  />
+
+  <!-- existing global site styles -->
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+
+  <!-- page-specific styles -->
+  <link rel="stylesheet" href="/stream-giveaway/giveaway.css" />
+
+  <meta property="og:title" content="Astro's Dungeon Stream Giveaway" />
+  <meta
+    property="og:description"
+    content="See the current giveaway item and where to find it."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://astrosdungeon.com/stream-giveaway/" />
+  <meta property="og:image" content="https://astrosdungeon.com/images/logo.png" />
+</head>
+<body class="giveaway-body">
+  <main
+    class="giveaway-page"
+    data-default-item="tummy-aches-tee-shirt"
+    data-stream-url="https://www.twitch.tv/astrosdungeon"
+  >
+    <section class="giveaway-hero">
+      <a class="giveaway-brand" href="/" aria-label="Go to Astro's Dungeon home page">
+        <img src="/images/logo.png" alt="Astro's Dungeon logo" />
+      </a>
+
+      <p class="eyebrow">LIVE STREAM FEATURED ITEM</p>
+      <h1 class="giveaway-title">Current Giveaway</h1>
+      <p class="giveaway-subtitle">
+        A closer look at the item being featured on stream.
+      </p>
+    </section>
+
+    <section
+      class="giveaway-card card"
+      id="giveaway-card"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div class="giveaway-loading">
+        <p>Loading giveaway item...</p>
+      </div>
+    </section>
+
+    <section class="giveaway-note card">
+      <h2>How this works</h2>
+      <p>
+        This page is just a showcase for the featured item. Giveaway entry and
+        rules happen on stream.
+      </p>
+    </section>
+  </main>
+
+  <script src="/assets/js/main.js" defer></script>
+  <script src="/stream-giveaway/giveaway.js" defer></script>
+</body>
+</html>
