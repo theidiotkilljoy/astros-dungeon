@@ -214,8 +214,51 @@
   gap: 0.75rem;
 }
 
-.giveaway-actions .button {
-  text-decoration: none;
+.giveaway-actions .giveaway-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: 0.9rem 1.15rem;
+  border-radius: var(--radius);
+  background: var(--card);
+  color: #fff;
+  text-decoration: none !important;
+  font-weight: 800;
+  border: 1px solid var(--border);
+  box-shadow: none;
+  transform: translateY(0);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.giveaway-actions .giveaway-cta:hover {
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 8px 28px rgba(150, 55, 47, 0.35);
+  transform: translateY(-1px);
+}
+
+.giveaway-actions .giveaway-cta:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.giveaway-actions .giveaway-cta:focus-visible {
+  color: #fff;
+  outline: none;
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 8px 28px rgba(150, 55, 47, 0.35);
+}
+
+.giveaway-actions .giveaway-cta:visited {
+  color: #fff;
 }
 
 .giveaway-meta {
