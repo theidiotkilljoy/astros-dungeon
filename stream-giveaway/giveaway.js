@@ -17,16 +17,16 @@
 
   // ---------------------------
   // OPTIONAL MANUAL GIVEAWAY OVERRIDE
-  // Uncomment this block when you want to feature an item
-  // that is NOT in /data/listings.html.
-  // Set url: "" if it is not for sale.
+  // Leave as null to use listings.html
+  // Replace null with an object to use a custom unlisted giveaway item
   // ---------------------------
-const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*/
-    /*
+  const MANUAL_GIVEAWAY_ITEM = null;
+
+  /*
   const MANUAL_GIVEAWAY_ITEM = {
     title: "Mystery Prize Box",
-    url: "", // leave blank for non-sale / unlisted giveaway items
-    price: null, // or 20.00 if you want a price shown
+    url: "",
+    price: null,
     salePrice: null,
     images: [
       "/images/giveaway/mystery-box-1.jpg",
@@ -36,7 +36,7 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
     category: "giveaway"
   };
   */
-  
+
   const slugify = (s) =>
     String(s || "")
       .toLowerCase()
@@ -79,6 +79,16 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
     return [`/images/products/${slug}/1.png`, "/images/logo.png"];
   };
 
+  const getUrlSlug = (url) => {
+    try {
+      const pathname = new URL(url).pathname;
+      const parts = pathname.split("/").filter(Boolean);
+      return parts.length ? slugify(parts[parts.length - 1]) : "";
+    } catch {
+      return "";
+    }
+  };
+
   const rowToItem = (tr) => {
     const tds = Array.from(tr.querySelectorAll("td")).map((td) =>
       td.textContent.trim()
@@ -95,6 +105,8 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
     const salePrice = parseMoney(saleRaw);
     const images = resolveImages(title, imagesRaw);
     const desc = String(descRaw || "").trim();
+    const titleSlug = slugify(title);
+    const listingSlug = getUrlSlug(url);
 
     const onSale =
       salePrice != null && price != null && salePrice < price;
@@ -105,7 +117,8 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
     return {
       category,
       title,
-      slug: slugify(title),
+      slug: titleSlug,
+      listingSlug,
       url,
       price,
       salePrice,
@@ -130,8 +143,14 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
     };
   };
 
+  const matchesKey = (item, value) => {
+    const key = slugify(value);
+    if (!key) return false;
+    return item.slug === key || item.listingSlug === key;
+  };
+
   const matchesRequest = (item, req) => {
-    if (req.item && item.slug === slugify(req.item)) return true;
+    if (req.item && matchesKey(item, req.item)) return true;
     if (req.title && item.title.toLowerCase() === req.title.toLowerCase()) return true;
     if (req.url && item.url === req.url) return true;
     return false;
@@ -229,7 +248,7 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
               ? `<p class="giveaway-desc">${safeDesc}</p>`
               : `<p class="giveaway-desc">This item is currently being featured on stream.</p>`
           }
-          
+
           <div class="giveaway-actions">
             ${
               item.url
@@ -245,7 +264,7 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
                   )}" target="_blank" rel="noopener">Watch stream</a>`
                 : ""
             }
-          </div>    
+          </div>
         </div>
       </div>
     `;
@@ -289,7 +308,7 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
     });
   };
 
-    const normalizeManualItem = (item) => {
+  const normalizeManualItem = (item) => {
     const price = item?.price ?? null;
     const salePrice = item?.salePrice ?? null;
     const onSale =
@@ -303,6 +322,7 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
       category: String(item?.category || "giveaway").toLowerCase(),
       title: String(item?.title || "Giveaway Item").trim(),
       slug: slugify(item?.title || "giveaway-item"),
+      listingSlug: "",
       url: String(item?.url || "").trim(),
       price,
       salePrice,
@@ -315,13 +335,14 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
       desc: String(item?.desc || "").trim(),
     };
   };
-  
+
   const load = async () => {
     try {
       if (MANUAL_GIVEAWAY_ITEM) {
         renderItem(normalizeManualItem(MANUAL_GIVEAWAY_ITEM));
         return;
       }
+
       const res = await fetch(CONFIG.listingsUrl, { cache: "no-store" });
       if (!res.ok) {
         throw new Error(`Listings request failed with ${res.status}`);
@@ -340,7 +361,7 @@ const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*
 
       const chosen =
         items.find((item) => matchesRequest(item, req)) ||
-        items.find((item) => item.slug === slugify(CONFIG.fallbackItem)) ||
+        items.find((item) => matchesKey(item, CONFIG.fallbackItem)) ||
         items[0];
 
       renderItem(chosen);
