@@ -15,6 +15,28 @@
     streamUrl: (root.dataset.streamUrl || "").trim(),
   };
 
+  // ---------------------------
+  // OPTIONAL MANUAL GIVEAWAY OVERRIDE
+  // Uncomment this block when you want to feature an item
+  // that is NOT in /data/listings.html.
+  // Set url: "" if it is not for sale.
+  // ---------------------------
+const MANUAL_GIVEAWAY_ITEM = null; /*comment out if using manual giveaway below*/
+    /*
+  const MANUAL_GIVEAWAY_ITEM = {
+    title: "Mystery Prize Box",
+    url: "", // leave blank for non-sale / unlisted giveaway items
+    price: null, // or 20.00 if you want a price shown
+    salePrice: null,
+    images: [
+      "/images/giveaway/mystery-box-1.jpg",
+      "/images/giveaway/mystery-box-2.jpg"
+    ],
+    desc: "A special stream-only giveaway item that is not listed in the shop.",
+    category: "giveaway"
+  };
+  */
+  
   const slugify = (s) =>
     String(s || "")
       .toLowerCase()
@@ -223,12 +245,7 @@
                   )}" target="_blank" rel="noopener">Watch stream</a>`
                 : ""
             }
-          </div>
-    
-          <div class="giveaway-meta">
-            <p class="muted">Tip: you can swap the featured item without editing this file by linking this page with <code>?item=${item.slug}</code>.</p>
-            <p class="muted">Example: <code>/stream-giveaway/?item=${item.slug}</code></p>
-          </div>
+          </div>    
         </div>
       </div>
     `;
@@ -272,8 +289,39 @@
     });
   };
 
+    const normalizeManualItem = (item) => {
+    const price = item?.price ?? null;
+    const salePrice = item?.salePrice ?? null;
+    const onSale =
+      salePrice != null && price != null && salePrice < price;
+
+    const pct = onSale
+      ? clamp(Math.round(((price - salePrice) / price) * 100), 1, 95)
+      : 0;
+
+    return {
+      category: String(item?.category || "giveaway").toLowerCase(),
+      title: String(item?.title || "Giveaway Item").trim(),
+      slug: slugify(item?.title || "giveaway-item"),
+      url: String(item?.url || "").trim(),
+      price,
+      salePrice,
+      onSale,
+      pct,
+      images:
+        Array.isArray(item?.images) && item.images.length
+          ? item.images
+          : ["/images/logo.png"],
+      desc: String(item?.desc || "").trim(),
+    };
+  };
+  
   const load = async () => {
     try {
+      if (MANUAL_GIVEAWAY_ITEM) {
+        renderItem(normalizeManualItem(MANUAL_GIVEAWAY_ITEM));
+        return;
+      }
       const res = await fetch(CONFIG.listingsUrl, { cache: "no-store" });
       if (!res.ok) {
         throw new Error(`Listings request failed with ${res.status}`);
