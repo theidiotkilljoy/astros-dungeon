@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "BlackChancey";
+  src: url("/assets/fonts/BLKCHCRY.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .giveaway-body {
   max-width: none;
   margin: 0;
