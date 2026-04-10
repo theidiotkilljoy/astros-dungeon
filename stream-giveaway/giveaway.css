@@ -1,9 +1,15 @@
 @font-face {
   font-family: "BlackChancey";
   src: url("/assets/fonts/BLKCHCRY.TTF") format("truetype");
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+
+.giveaway-title {
+  font-family: "BlackChancey", serif !important;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
 }
 
 .giveaway-body {
@@ -43,11 +49,6 @@
   letter-spacing: 0.14em;
   font-size: 0.85rem;
   margin-bottom: 0.6rem;
-}
-
-.giveaway-title {
-  font-family: "BlackChancey", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
-  letter-spacing: 0.02em;
 }
 
 .giveaway-subtitle {
