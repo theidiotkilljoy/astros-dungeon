@@ -182,8 +182,10 @@
   letter-spacing: 0.06em;
 }
 
+.giveaway-title,
 .giveaway-item-title {
-  margin-bottom: 0;
+  font-family: "BlackChancey", serif;
+  letter-spacing: 0.02em;
 }
 
 .giveaway-desc {
