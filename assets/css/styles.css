@@ -15,14 +15,6 @@
   --radius: 10px;
 }
 
-@font-face {
-  font-family: "BlackChancey";
-  src: url("/assets/fonts/blkchcry.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* --- global --- */
 html,
 body {
@@ -41,10 +33,6 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1.25rem;
-}
-
-body {
-  font-family: "BlackChancey", system-ui, sans-serif;
 }
 
 /* text selection */
