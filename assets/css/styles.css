@@ -316,6 +316,18 @@ body.landing {
   width: clamp(120px, 22vw, 240px);
   height: auto;
   max-height: none;
+  filter:
+    drop-shadow(0 0 10px rgba(150, 55, 47, 0.30))
+    drop-shadow(0 0 24px rgba(150, 55, 47, 0.22))
+    drop-shadow(0 0 42px rgba(150, 55, 47, 0.14));
+  transition: filter 0.18s ease;
+}
+
+.landing .logo:hover {
+  filter:
+    drop-shadow(0 0 12px rgba(150, 55, 47, 0.38))
+    drop-shadow(0 0 28px rgba(150, 55, 47, 0.28))
+    drop-shadow(0 0 50px rgba(150, 55, 47, 0.18));
 }
 
 /* tighter stack for index splash */
