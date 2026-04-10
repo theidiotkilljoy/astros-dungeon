@@ -38,7 +38,8 @@
 }
 
 .giveaway-title {
-  margin-bottom: 0.4rem;
+  font-family: "BlackChancey", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+  letter-spacing: 0.02em;
 }
 
 .giveaway-subtitle {
