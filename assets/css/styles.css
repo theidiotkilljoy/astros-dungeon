@@ -720,27 +720,26 @@ body.landing {
   }
 }
 
-/* --- site-wide sale banner --- */
+/* --- site-wide sale banner, leave this alone after sale ends --- */
 .sale-banner {
   width: 100%;
-  padding: 14px 20px;
-  margin-bottom: 20px;
-
-  background: #96372f;
-  color: #ffffff;
-
-  border: 3px solid #ffffff;
-  border-radius: 6px;
+  margin: 0 auto 14px;
+  padding: 2px 12px;
 
   text-align: center;
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Lucida Console", "DejaVu Sans Mono",
-    "Courier New", monospace;
+  font-family: Consolas, "Courier New", monospace;
 
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 900;
-  line-height: 1.1;
+  font-size: clamp(1.35rem, 3vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+
+  color: #b9473d;
+
+  text-shadow:
+    0 0 4px rgba(185, 71, 61, 0.95),
+    0 0 10px rgba(150, 55, 47, 0.8),
+    0 0 18px rgba(150, 55, 47, 0.55),
+    0 0 30px rgba(150, 55, 47, 0.3);
 }
