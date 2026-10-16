@@ -121,6 +121,7 @@
   });
 })();
 
+
 // ---------------------------
 // Site-wide apparel sale banner ---- COMMENT THIS OUT LATER, sale ends Nov 15th
 // ---------------------------
@@ -129,5 +130,12 @@
   banner.className = 'sale-banner';
   banner.textContent = 'ALL APPAREL 20% OFF';
 
-  document.body.prepend(banner);
+  const siteBrand = document.querySelector('.site-brand');
+  const landingLogo = document.querySelector('.landing .logo');
+
+  if (siteBrand) {
+    siteBrand.insertAdjacentElement('afterend', banner);
+  } else if (landingLogo) {
+    landingLogo.insertAdjacentElement('afterend', banner);
+  }
 })();
