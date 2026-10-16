@@ -120,3 +120,14 @@
     if (!mq.matches) closeDrawer();
   });
 })();
+
+// ---------------------------
+// Site-wide apparel sale banner
+// ---------------------------
+(() => {
+  const banner = document.createElement('div');
+  banner.className = 'sale-banner';
+  banner.textContent = 'ALL APPAREL 20% OFF';
+
+  document.body.prepend(banner);
+})();
