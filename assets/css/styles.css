@@ -294,7 +294,8 @@ img {
 body.landing {
   padding: 0;
   max-width: none;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .landing {
