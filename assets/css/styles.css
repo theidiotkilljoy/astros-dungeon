@@ -720,25 +720,27 @@ body.landing {
   }
 }
 
-/* --- apparel sale banner --- */
+/* --- site-wide sale banner --- */
 .sale-banner {
   width: 100%;
-  margin: 18px auto 4px;
   padding: 14px 20px;
-  text-align: center;
+  margin-bottom: 20px;
 
+  background: #96372f;
+  color: #ffffff;
+
+  border: 3px solid #ffffff;
+  border-radius: 6px;
+
+  text-align: center;
   font-family:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Lucida Console", "DejaVu Sans Mono",
     "Courier New", monospace;
 
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 900;
+  line-height: 1.1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-
-  color: #fff;
-  background: var(--accent);
-  border: 2px solid #fff;
 }
-
