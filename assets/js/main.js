@@ -122,7 +122,7 @@
 })();
 
 // ---------------------------
-// Site-wide apparel sale banner
+// Site-wide apparel sale banner ---- COMMENT THIS OUT LATER, sale ends Nov 15th
 // ---------------------------
 (() => {
   const banner = document.createElement('div');
