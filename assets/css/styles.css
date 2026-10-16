@@ -395,7 +395,7 @@ body.landing {
 .site-brand {
   display: grid;
   place-items: center;
-  padding: 16px;
+  padding: 16px 16px 6px;
 }
 .site-logo {
   width: clamp(120px, 22vw, 240px);
