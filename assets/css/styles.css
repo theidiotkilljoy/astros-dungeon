@@ -289,7 +289,6 @@ img {
   padding: 0 10px;
 }
 
-
 /* --- splash / landing --- */
 body.landing {
   padding: 0;
@@ -333,14 +332,21 @@ body.landing {
 
 /* tighter stack for index splash */
 .landing--tight {
-  gap: clamp(4px, 1vh, 12px);
-  padding-top: max(8px, env(safe-area-inset-top));
-  padding-bottom: max(56px, env(safe-area-inset-bottom) + 24px);
+  min-height: 100svh;
+  box-sizing: border-box;
+
+  gap: clamp(2px, 0.8vh, 10px);
+
+  padding:
+    max(6px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
+    max(8px, env(safe-area-inset-bottom))
+    max(12px, env(safe-area-inset-left));
 }
 
 .etd {
   width: min(92vw, 1200px);
-  max-height: 50svh;
+  max-height: min(48svh, 520px);
   object-fit: contain;
 }
 
@@ -365,22 +371,67 @@ body.landing {
   border: 0 !important;
   box-shadow: none !important;
 }
+
 .arcade-btn img {
   display: block;
-  width: clamp(180px, 40vw, 360px);
+  width: clamp(150px, 36vw, 340px);
+  max-height: 13svh;
+  object-fit: contain;
   height: auto;
   border: 0;
   box-shadow: none !important;
 }
+
 .arcade-btn:hover {
   transform: translateY(-1px) scale(1.02);
 }
+
 .arcade-btn.pressed {
   transform: translateY(1px) scale(0.99);
 }
+
 .arcade-btn:focus,
 .arcade-btn:focus-visible {
   outline: none !important;
+}
+
+/* extra tightening for short browser windows */
+@media (max-height: 700px) {
+  .landing .logo {
+    width: clamp(105px, 18vw, 190px);
+  }
+
+  .etd {
+    max-height: 43svh;
+  }
+
+  .arcade-btn img {
+    width: clamp(140px, 32vw, 300px);
+    max-height: 12svh;
+  }
+
+  .landing--tight {
+    gap: 2px;
+  }
+}
+/* extra tightening for short browser windows */
+@media (max-height: 700px) {
+  .landing .logo {
+    width: clamp(105px, 18vw, 190px);
+  }
+
+  .etd {
+    max-height: 43svh;
+  }
+
+  .arcade-btn img {
+    width: clamp(140px, 32vw, 300px);
+    max-height: 12svh;
+  }
+
+  .landing--tight {
+    gap: 2px;
+  }
 }
 
 /* Splash responsive tweaks */
